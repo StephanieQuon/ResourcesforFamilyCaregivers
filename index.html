@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BC Healthcare Resources for Family Caregivers</title>
+    <!-- Include Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Include Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Include Roboto Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .header-title {
+            color: #163647;
+            font-size: 1.9em;
+        }
+        .logo-space {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px; /* Increased height for a larger logo */
+            margin-bottom: 20px;
+        }
+        .logo-space img {
+            max-height: 100%;
+            max-width: 100%;
+            transform: scale(1.05); /* Scale up logo by 25% */
+        }
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px 40px 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #71A7B0;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .search-bar .material-icons {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #71A7B0;
+        }
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .filters select {
+            background-color: #fff;
+        }
+        .filter-button, .btn {
+            background-color: #71A7B0;
+            color: #fff;
+        }
+        .resource-card {
+            margin: 15px 0;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .resource-card h5 {
+            margin-top: 0;
+            color: #163647;
+        }
+        .resource-card p {
+            margin: 5px 0;
+        }
+        .resource-card .condition {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-space">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <h1 class="center-align header-title">BC Healthcare Resources for Family Caregivers</h1>
+        <div class="row">
+            <div class="col s12 search-bar">
+                <input id="search" type="text" class="validate" placeholder="Search for Resources">
+                <i class="material-icons">search</i>
+            </div>
+        </div>
+        <div class="row filters">
+            <div class="input-field col s12 m3">
+                <select id="condition-filter">
+                    <option value="" disabled selected>Filter by Condition</option>
+                </select>
+                <label>Condition</label>
+            </div>
+            <div class="input-field col s12 m3">
+                <select id="region-filter">
+                    <option value="" disabled selected>Filter by Health Region</option>
+                </select>
+                <label>Health Region</label>
+            </div>
+            <div class="input-field col s12 m3">
+                <select id="cost-filter">
+                    <option value="" disabled selected>Filter by Cost</option>
+                </select>
+                <label>Cost</label>
+            </div>
+            <div class="input-field col s12 m3">
+                <a href="#" id="clear-filters" class="btn filter-button">Clear Filters</a>
+            </div>
+        </div>
+        <div id="resource-list" class="row"></div>
+    </div>
+
+    <!-- Include Materialize JS and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

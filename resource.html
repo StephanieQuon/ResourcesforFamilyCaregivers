@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Details - BC Healthcare Resources for Family Caregivers</title>
+    <!-- Include Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Include Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Include Roboto Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .logo-space {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px; /* Adjust as needed for logo size */
+            margin-bottom: 20px;
+        }
+        .logo-space img {
+            max-height: 100%;
+            max-width: 100%;
+            transform: scale(1.05); /* Scale up logo by 25% */
+        }
+        .header-title {
+            color: #163647;
+            font-size: 1.9em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            color: #71A7B0;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            display: block;
+            text-align: left;
+            text-decoration: none;
+            border: none;
+            background: none;
+        }
+        .resource-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .resource-details h2 {
+            color: #163647;
+            margin-top: 0;
+        }
+        .resource-details p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .resource-details .condition {
+            font-weight: bold;
+        }
+        .resource-details .health-region {
+            font-style: italic;
+        }
+        .resource-details .link {
+            color: #71A7B0;
+            text-decoration: none;
+        }
+        .resource-details .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Title -->
+        <div class="logo-space">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <h1 class="header-title">BC Healthcare Resources for Family Caregivers</h1>
+        <!-- Back Button -->
+        <a href="index.html" class="back-button">&gt; Back</a>
+        <!-- Resource Details -->
+        <div class="resource-details" id="resource-details">
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const resourceName = params.get('name');
+            
+            fetch('resources.csv')
+                .then(response => response.text())
+                .then(data => {
+                    const rows = data.split('\n');
+                    const headers = rows[0].split(',');
+                    const resource = rows.slice(1).map(row => row.split(',')).find(columns => columns[0] === resourceName);
+
+                    if (resource) {
+                        const detailsContainer = document.getElementById('resource-details');
+                        detailsContainer.innerHTML = `
+                            <h2>${resource[0]}</h2>
+                            <p><strong>Condition(s):</strong> <span class="condition">${resource[1]}</span></p>
+                            <p><strong>Tag:</strong> ${resource[2]}</p>
+                            <p><strong>Health Region:</strong> <span class="health-region">${resource[3]}</span></p>
+                            <p><strong>City:</strong> ${resource[4]}</p>
+                            <p><strong>Address:</strong> ${resource[5]}</p>
+                            <p><strong>Postal Code:</strong> ${resource[6]}</p>
+                            <p><strong>Contact Email:</strong> <a href="mailto:${resource[7]}" class="link">${resource[7]}</a></p>
+                            <p><strong>Contact Phone Number:</strong> ${resource[8]}</p>
+                            <p><strong>Contact Website:</strong> <a href="${resource[9]}" target="_blank" class="link">${resource[9]}</a></p>
+                            <p><strong>Status:</strong> ${resource[10]}</p>
+                            <p><strong>Services Offered:</strong> ${resource[11]}</p>
+                            <p><strong>Language Restriction:</strong> ${resource[12]}</p>
+                            <p><strong>Age Restriction:</strong> ${resource[13]}</p>
+                            <p><strong>Cost:</strong> ${resource[14]}</p>
+                            <p><strong>Virtual/In-person:</strong> ${resource[15]}</p>
+                            <p><strong>Notes:</strong> ${resource[16]}</p>
+                        `;
+                    } else {
+                        document.getElementById('resource-details').innerHTML = '<p>Resource not found.</p>';
+                    }
+                });
+        });
+    </script>
+</body>
+</html>
