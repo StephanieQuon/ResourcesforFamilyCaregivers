@@ -3,127 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource Details - BC Healthcare Resources for Family Caregivers</title>
-    <!-- Materialize CSS -->
+    <title>Resource Details</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Roboto Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #ffffff;
             font-family: 'Roboto', sans-serif;
         }
+        .back-button {
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+            margin: 20px 0;
+            color: #71A7B0;
+        }
+        .back-button i {
+            margin-right: 5px;
+        }
         .container {
             margin-top: 20px;
-        }
-        .logo-space {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px; 
-            margin-bottom: 20px;
-        }
-        .logo-space img {
-            max-height: 100%;
-            max-width: 100%;
-            transform: scale(1.05); 
-        }
-        .header-title {
-            color: #163647;
-            font-size: 1.9em;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .back-button {
-            color: #71A7B0;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            display: block;
-            text-align: left;
-            text-decoration: none;
-            border: none;
-            background: none;
         }
         .resource-details {
             background-color: #fff;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
         }
-        .resource-details h2 {
-            color: #163647;
-            margin-top: 0;
+        .header {
+            background-color: #71A7B0;
+            padding: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            color: #fff;
         }
-        .resource-details p {
-            margin: 10px 0;
-            line-height: 1.6;
+        .header h2 {
+            margin: 0;
+            font-size: 1.8em;
         }
-        .resource-details .condition {
-            font-weight: bold;
+        .services {
+            background-color: #fff;
+            padding: 10px 15px;
+            border-bottom: 1px solid #71A7B0;
         }
-        .resource-details .health-region {
-            font-style: italic;
+        .tags {
+            padding: 10px 15px;
+            border-bottom: 1px solid #71A7B0;
         }
-        .resource-details .link {
-            color: #71A7B0;
-            text-decoration: none;
+        .tag {
+            display: inline-block;
+            background-color: #f1f1f1;
+            border-radius: 15px;
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 0.9em;
         }
-        .resource-details .link:hover {
-            text-decoration: underline;
+        .details {
+            padding: 15px;
+        }
+        .detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .detail-icon {
+            background-color: #71A7B0;
+            color: #fff;
+            border-radius: 50%;
+            padding: 5px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .detail-text {
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo and Title -->
-        <div class="logo-space">
-            <img src="logo.png" alt="Logo">
+        <div class="back-button">
+            <i class="material-icons">arrow_back</i>
+            <a href="index.html">Back</a>
         </div>
-        <h1 class="header-title">BC Healthcare Resources for Family Caregivers</h1>
-        <!-- Back Button -->
-        <a href="index.html" class="back-button">&gt; Back</a>
-        <!-- Resource Details -->
-        <div class="resource-details" id="resource-details">
+        <div class="resource-details">
+            <div class="header">
+                <h2 id="resource-name">Resource Name</h2>
+            </div>
+            <div class="services">
+                <p id="services-offered">Services offered...</p>
+            </div>
+            <div class="tags" id="tags">
+                <!-- Tags will be injected here -->
+            </div>
+            <div class="details">
+                <div class="detail" id="address-detail">
+                    <div class="detail-icon"><i class="material-icons">location_on</i></div>
+                    <div class="detail-text" id="address">Address...</div>
+                </div>
+                <div class="detail" id="phone-detail">
+                    <div class="detail-icon"><i class="material-icons">phone</i></div>
+                    <div class="detail-text" id="phone">Contact phone number...</div>
+                </div>
+                <div class="detail" id="website-detail">
+                    <div class="detail-icon"><i class="material-icons">public</i></div>
+                    <div class="detail-text" id="website">Contact website...</div>
+                </div>
+                <div class="detail" id="email-detail">
+                    <div class="detail-icon"><i class="material-icons">email</i></div>
+                    <div class="detail-text" id="email">Contact email...</div>
+                </div>
+                <div class="detail" id="status-detail">
+                    <div class="detail-icon"><i class="material-icons">info</i></div>
+                    <div class="detail-text" id="status">Status...</div>
+                </div>
+                <div class="detail" id="cost-detail">
+                    <div class="detail-icon"><i class="material-icons">attach_money</i></div>
+                    <div class="detail-text" id="cost">Cost...</div>
+                </div>
+                <div class="detail" id="language-detail">
+                    <div class="detail-icon"><i class="material-icons">language</i></div>
+                    <div class="detail-text" id="language">Language restriction...</div>
+                </div>
+                <div class="detail">
+                    <div class="detail-text" id="age-restriction">Age restriction...</div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const params = new URLSearchParams(window.location.search);
             const resourceName = params.get('name');
-            
+
             fetch('resources.csv')
                 .then(response => response.text())
                 .then(data => {
-                    const rows = data.split('\n');
-                    const headers = rows[0].split(',');
-                    const resource = rows.slice(1).map(row => row.split(',')).find(columns => columns[0] === resourceName);
+                    const rows = data.split('\n').map(row => row.split(','));
+                    const headers = rows[0];
+                    const resourceIndex = headers.findIndex(header => header.trim() === "Name of Organization");
+                    const resource = rows.slice(1).find(row => row[resourceIndex].trim() === resourceName.trim());
 
                     if (resource) {
-                        const detailsContainer = document.getElementById('resource-details');
-                        detailsContainer.innerHTML = `
-                            <h2>${resource[0]}</h2>
-                            <p><strong>Condition(s):</strong> <span class="condition">${resource[1]}</span></p>
-                            <p><strong>Tag:</strong> ${resource[2]}</p>
-                            <p><strong>Health Region:</strong> <span class="health-region">${resource[3]}</span></p>
-                            <p><strong>City:</strong> ${resource[4]}</p>
-                            <p><strong>Address:</strong> ${resource[5]}</p>
-                            <p><strong>Postal Code:</strong> ${resource[6]}</p>
-                            <p><strong>Contact Email:</strong> <a href="mailto:${resource[7]}" class="link">${resource[7]}</a></p>
-                            <p><strong>Contact Phone Number:</strong> ${resource[8]}</p>
-                            <p><strong>Contact Website:</strong> <a href="${resource[9]}" target="_blank" class="link">${resource[9]}</a></p>
-                            <p><strong>Status:</strong> ${resource[10]}</p>
-                            <p><strong>Services Offered:</strong> ${resource[11]}</p>
-                            <p><strong>Language Restriction:</strong> ${resource[12]}</p>
-                            <p><strong>Age Restriction:</strong> ${resource[13]}</p>
-                            <p><strong>Cost:</strong> ${resource[14]}</p>
-                            <p><strong>Virtual/In-person:</strong> ${resource[15]}</p>
-                            <p><strong>Notes:</strong> ${resource[16]}</p>
-                        `;
+                        document.getElementById('resource-name').textContent = resource[0];
+                        document.getElementById('services-offered').textContent = resource[11];
+
+                        const tags = resource[2].split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('');
+                        document.getElementById('tags').innerHTML = tags;
+
+                        document.getElementById('address').textContent = resource[5];
+                        document.getElementById('phone').textContent = resource[8];
+                        document.getElementById('website').innerHTML = `<a href="${resource[9]}" target="_blank">${resource[9]}</a>`;
+                        document.getElementById('email').innerHTML = `<a href="mailto:${resource[7]}">${resource[7]}</a>`;
+                        document.getElementById('status').textContent = resource[10];
+                        document.getElementById('cost').textContent = resource[14];
+                        document.getElementById('language').textContent = resource[12];
+                        document.getElementById('age-restriction').textContent = `Age Restriction: ${resource[13]}`;
                     } else {
-                        document.getElementById('resource-details').innerHTML = '<p>Resource not found.</p>';
+                        document.getElementById('resource-name').textContent = 'Resource not found.';
                     }
                 });
         });
