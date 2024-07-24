@@ -80,7 +80,11 @@
         .detail-text {
             font-size: 1em;
         }
+        .spacing {
+            margin-bottom: 20px; /* Adjust the margin as needed */
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -96,7 +100,7 @@
                 <p id="services-offered">Services offered</p>
             </div>
             <div class="tags" id="tags">
-                <!-- Tags will be added here -->
+                <!-- Tags added here -->
             </div>
             <div class="details">
                 <div class="detail" id="address-detail">
@@ -127,8 +131,8 @@
                     <div class="detail-icon"><i class="material-icons">language</i></div>
                     <div class="detail-text" id="language">Language restriction</div>
                 </div>
-                &nbsp; 
-                <div class="detail">
+                &nbsp;
+                <div class="detail spacing">
                     <div class="detail-text" id="age-restriction">Age restriction</div>
                 </div>
             </div>
@@ -142,29 +146,32 @@
             fetch('resources.csv')
                 .then(response => response.text())
                 .then(data => {
-                    const rows = data.split('\n').map(row => row.split(','));
-                    const headers = rows[0];
-                    const resourceIndex = headers.findIndex(header => header.trim() === "Name of Organization");
-                    const resource = rows.slice(1).find(row => row[resourceIndex].trim() === resourceName.trim());
+                    Papa.parse(data, {
+                        header: true,
+                        complete: function(results) {
+                            const resources = results.data;
+                            const resource = resources.find(row => row["Name of Organization"].trim() === resourceName.trim());
 
-                    if (resource) {
-                        document.getElementById('resource-name').textContent = resource[0];
-                        document.getElementById('services-offered').textContent = resource[11];
+                            if (resource) {
+                                document.getElementById('resource-name').textContent = resource["Name of Organization"];
+                                document.getElementById('services-offered').textContent = resource["Services offered"];
 
-                        const tags = resource[2].split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('');
-                        document.getElementById('tags').innerHTML = tags;
+                                const tags = resource["Tag"].split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('');
+                                document.getElementById('tags').innerHTML = tags;
 
-                        document.getElementById('address').textContent = resource[5];
-                        document.getElementById('phone').textContent = resource[8];
-                        document.getElementById('website').innerHTML = `<a href="${resource[9]}" target="_blank">${resource[9]}</a>`;
-                        document.getElementById('email').innerHTML = `<a href="mailto:${resource[7]}">${resource[7]}</a>`;
-                        document.getElementById('status').textContent = resource[10];
-                        document.getElementById('cost').textContent = resource[14];
-                        document.getElementById('language').textContent = resource[12];
-                        document.getElementById('age-restriction').textContent = `Age Restriction: ${resource[13]}`;
-                    } else {
-                        document.getElementById('resource-name').textContent = 'Resource not found.';
-                    }
+                                document.getElementById('address').textContent = resource["Address"];
+                                document.getElementById('phone').textContent = resource["Contact phone number"];
+                                document.getElementById('website').innerHTML = `<a href="${resource["Contact website"]}" target="_blank">${resource["Contact website"]}</a>`;
+                                document.getElementById('email').innerHTML = `<a href="mailto:${resource["Contact email"]}">${resource["Contact email"]}</a>`;
+                                document.getElementById('status').textContent = resource["Status"];
+                                document.getElementById('cost').textContent = resource["Cost"];
+                                document.getElementById('language').textContent = resource["Language restriction"];
+                                document.getElementById('age-restriction').textContent = `Age Restriction: ${resource["Age restriction"]}`;
+                            } else {
+                                document.getElementById('resource-name').textContent = 'Resource not found.';
+                            }
+                        }
+                    });
                 });
         });
     </script>
