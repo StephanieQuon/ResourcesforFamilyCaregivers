@@ -6,10 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const costFilter = document.getElementById('cost-filter');
     const clearFiltersButton = document.getElementById('clear-filters');
 
-    // Initialize Materialize components
     M.FormSelect.init(document.querySelectorAll('select'));
 
-    // Fetch and parse CSV data
     fetch('resources.csv')
         .then(response => {
             if (!response.ok) {

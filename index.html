@@ -77,9 +77,9 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
         }
         .resource-card h5 {
             margin-top: 0;
@@ -90,20 +90,6 @@
         }
         .resource-card .condition {
             font-weight: bold;
-        }
-        .resource-card .view-resource {
-            margin-top: 10px;
-            align-self: flex-end;
-        }
-        @media (min-width: 769px) {
-            .resource-card {
-                flex-direction: row;
-                align-items: center;
-            }
-            .resource-card .view-resource {
-                margin-top: 0;
-                margin-left: auto;
-            }
         }
         @media (max-width: 768px) {
             .header-title {
@@ -117,9 +103,6 @@
             }
             .resource-card {
                 padding: 15px;
-            }
-            .resource-card .view-resource {
-                margin-top: 15px; /* Added space between text and button */
             }
         }
         @media (max-width: 480px) {
@@ -137,9 +120,6 @@
             }
             .resource-card {
                 padding: 10px;
-            }
-            .resource-card .view-resource {
-                margin-top: 15px; /* Added space between text and button */
             }
         }
     </style>
@@ -179,18 +159,7 @@
                 <a href="#" id="clear-filters" class="btn filter-button">Clear Filters</a>
             </div>
         </div>
-        <div id="resource-list" class="row">
-            <!-- Example of a resource card -->
-            <div class="col s12">
-                <div class="resource-card">
-                    <h5>Resource Title</h5>
-                    <p class="condition">Condition: Example</p>
-                    <p>Region: Example</p>
-                    <p>Cost: Example</p>
-                    <a href="#" class="btn view-resource">View Resource</a>
-                </div>
-            </div>
-        </div>
+        <div id="resource-list" class="row"></div>
     </div>
 
     <!-- Materialize JS and dependencies -->
