@@ -26,13 +26,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 200px; 
+            height: 150px; 
             margin-bottom: 20px;
         }
         .logo-space img {
             max-height: 100%;
             max-width: 100%;
-            transform: scale(1.05); 
         }
         .search-bar {
             position: relative;
@@ -55,11 +54,16 @@
         }
         .filters {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-        .filters select {
+        .filters .input-field {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .filters .input-field select {
             background-color: #fff;
         }
         .filter-button, .btn {
@@ -73,8 +77,9 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
         }
         .resource-card h5 {
             margin-top: 0;
@@ -85,6 +90,57 @@
         }
         .resource-card .condition {
             font-weight: bold;
+        }
+        .resource-card .view-resource {
+            margin-top: 10px;
+            align-self: flex-end;
+        }
+        @media (min-width: 769px) {
+            .resource-card {
+                flex-direction: row;
+                align-items: center;
+            }
+            .resource-card .view-resource {
+                margin-top: 0;
+                margin-left: auto;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 1.5em;
+            }
+            .logo-space {
+                height: 100px;
+            }
+            .search-bar input {
+                padding: 10px 40px 10px 15px;
+            }
+            .resource-card {
+                padding: 15px;
+            }
+            .resource-card .view-resource {
+                margin-top: 15px; /* Added space between text and button */
+            }
+        }
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.2em;
+            }
+            .logo-space {
+                height: 80px;
+            }
+            .search-bar input {
+                padding: 10px 35px 10px 10px;
+            }
+            .filters .input-field {
+                width: 100%;
+            }
+            .resource-card {
+                padding: 10px;
+            }
+            .resource-card .view-resource {
+                margin-top: 15px; /* Added space between text and button */
+            }
         }
     </style>
 </head>
@@ -123,7 +179,18 @@
                 <a href="#" id="clear-filters" class="btn filter-button">Clear Filters</a>
             </div>
         </div>
-        <div id="resource-list" class="row"></div>
+        <div id="resource-list" class="row">
+            <!-- Example of a resource card -->
+            <div class="col s12">
+                <div class="resource-card">
+                    <h5>Resource Title</h5>
+                    <p class="condition">Condition: Example</p>
+                    <p>Region: Example</p>
+                    <p>Cost: Example</p>
+                    <a href="#" class="btn view-resource">View Resource</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Materialize JS and dependencies -->

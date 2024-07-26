@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <p class="condition">${resource['Condition(s)']}</p>
                     <p>${resource['Health Region']}</p>
                 </div>
-                <a href="resource.html?name=${encodeURIComponent(resource['Name of Organization'])}" class="btn">View Resource</a>
+                <a href="resource.html?name=${encodeURIComponent(resource['Name of Organization'])}" class="btn view-resource">View Resource</a>
             `;
             resourceList.appendChild(resourceCard);
         });
@@ -55,21 +55,25 @@ document.addEventListener('DOMContentLoaded', function () {
             costs.add(resource['Cost']);
         });
 
-        conditions.forEach(condition => {
+        const sortedConditions = Array.from(conditions).sort();
+        const sortedRegions = Array.from(regions).sort();
+        const sortedCosts = Array.from(costs).sort();
+
+        sortedConditions.forEach(condition => {
             const option = document.createElement('option');
             option.value = condition;
             option.textContent = condition;
             conditionFilter.appendChild(option);
         });
 
-        regions.forEach(region => {
+        sortedRegions.forEach(region => {
             const option = document.createElement('option');
             option.value = region;
             option.textContent = region;
             regionFilter.appendChild(option);
         });
 
-        costs.forEach(cost => {
+        sortedCosts.forEach(cost => {
             const option = document.createElement('option');
             option.value = cost;
             option.textContent = cost;
