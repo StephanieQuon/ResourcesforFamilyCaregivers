@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const costFilter = document.getElementById('cost-filter');
     const clearFiltersButton = document.getElementById('clear-filters');
 
+    // Initialize Materialize FormSelect
     M.FormSelect.init(document.querySelectorAll('select'));
 
     fetch('resources.csv')
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Parsed resources:', resources); // Debug statement
             displayResources(resources);
             populateFilters(resources);
+            initializeAutocomplete(resources);
         })
         .catch(error => {
             console.error('Error fetching or parsing the CSV file:', error);
@@ -81,6 +83,20 @@ document.addEventListener('DOMContentLoaded', function () {
         M.FormSelect.init(document.querySelectorAll('select'));
     }
 
+    function initializeAutocomplete(resources) {
+        const autocompleteData = {};
+        resources.forEach(resource => {
+            autocompleteData[resource['Name of Organization']] = null; // You can add an image URL if you have one
+        });
+
+        M.Autocomplete.init(searchInput, {
+            data: autocompleteData,
+            onAutocomplete: function() {
+                filterResources();
+            }
+        });
+    }
+
     searchInput.addEventListener('input', () => filterResources());
     conditionFilter.addEventListener('change', () => filterResources());
     regionFilter.addEventListener('change', () => filterResources());
@@ -106,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let resources = Papa.parse(data, { header: true }).data;
 
                 if (searchValue) {
-                    resources = resources.filter(resource => resource['Tag'].toLowerCase().includes(searchValue));
+                    resources = resources.filter(resource => resource['Name of Organization'].toLowerCase().includes(searchValue));
                 }
                 if (conditionValue) {
                     resources = resources.filter(resource => resource['Condition(s)'].includes(conditionValue));

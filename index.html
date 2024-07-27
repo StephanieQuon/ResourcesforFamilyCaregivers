@@ -103,6 +103,17 @@
             }
             .resource-card {
                 padding: 15px;
+                flex-direction: column;
+                text-align: center; 
+            }
+            .resource-card h5 {
+                margin-bottom: 10px;
+            }
+            .resource-card p {
+                margin: 5px 0;
+            }
+            .resource-card .condition {
+                font-weight: bold;
             }
         }
         @media (max-width: 480px) {
@@ -122,7 +133,13 @@
                 padding: 10px;
             }
         }
+        /* Force dropdowns to always drop downward */
+        .dropdown-content {
+            transform-origin: 0 0 !important;
+            top: 100% !important;
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -132,9 +149,9 @@
         <h1 class="center-align header-title">BC Healthcare Resources for Family Caregivers</h1>
         <div class="row">
             <div class="col s12 search-bar">
-                <input id="search" type="text" class="validate" placeholder="Search for Resources">
+                <input id="search" type="text" class="autocomplete validate" placeholder="Search for Resources">
                 <i class="material-icons">search</i>
-            </div>
+            </div>            
         </div>
         <div class="row filters">
             <div class="input-field col s12 m3">
@@ -164,7 +181,6 @@
 
     <!-- Materialize JS and dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

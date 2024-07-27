@@ -103,6 +103,14 @@
                 <!-- Tags added here -->
             </div>
             <div class="details">
+                <div class="detail" id="condition-detail">
+                    <div class="detail-icon"><i class="material-icons">healing</i></div>
+                    <div class="detail-text" id="condition">Condition(s)</div>
+                </div>
+                <div class="detail" id="health-region-detail">
+                    <div class="detail-icon"><i class="material-icons">add_location</i></div>
+                    <div class="detail-text" id="health-region">Health Region</div>
+                </div>
                 <div class="detail" id="address-detail">
                     <div class="detail-icon"><i class="material-icons">location_on</i></div>
                     <div class="detail-text" id="address">Address</div>
@@ -111,25 +119,29 @@
                     <div class="detail-icon"><i class="material-icons">phone</i></div>
                     <div class="detail-text" id="phone">Contact phone number</div>
                 </div>
-                <div class="detail" id="website-detail">
-                    <div class="detail-icon"><i class="material-icons">public</i></div>
-                    <div class="detail-text" id="website">Contact website</div>
-                </div>
                 <div class="detail" id="email-detail">
                     <div class="detail-icon"><i class="material-icons">email</i></div>
                     <div class="detail-text" id="email">Contact email</div>
                 </div>
-                <div class="detail" id="status-detail">
-                    <div class="detail-icon"><i class="material-icons">info</i></div>
-                    <div class="detail-text" id="status">Status</div>
+                <div class="detail" id="website-detail">
+                    <div class="detail-icon"><i class="material-icons">public</i></div>
+                    <div class="detail-text" id="website">Contact website</div>
+                </div>
+                <div class="detail" id="language-detail">
+                    <div class="detail-icon"><i class="material-icons">language</i></div>
+                    <div class="detail-text" id="language">Language restriction</div>
+                </div>
+                <div class="detail" id="virtual-inperson-detail">
+                    <div class="detail-icon"><i class="material-icons">devices</i></div>
+                    <div class="detail-text" id="virtual-inperson">Virtual/In-person</div>
                 </div>
                 <div class="detail" id="cost-detail">
                     <div class="detail-icon"><i class="material-icons">attach_money</i></div>
                     <div class="detail-text" id="cost">Cost</div>
                 </div>
-                <div class="detail" id="language-detail">
-                    <div class="detail-icon"><i class="material-icons">language</i></div>
-                    <div class="detail-text" id="language">Language restriction</div>
+                <div class="detail" id="status-detail">
+                    <div class="detail-icon"><i class="material-icons">info</i></div>
+                    <div class="detail-text" id="status">Status</div>
                 </div>
                 &nbsp;
                 <div class="detail spacing">
@@ -163,9 +175,12 @@
                                 document.getElementById('phone').textContent = resource["Contact phone number"];
                                 document.getElementById('website').innerHTML = `<a href="${resource["Contact website"]}" target="_blank">${resource["Contact website"]}</a>`;
                                 document.getElementById('email').innerHTML = `<a href="mailto:${resource["Contact email"]}">${resource["Contact email"]}</a>`;
-                                document.getElementById('status').textContent = resource["Status"];
-                                document.getElementById('cost').textContent = resource["Cost"];
+                                document.getElementById('status').textContent = `Status: ${resource["Status"]}`;
+                                document.getElementById('cost').textContent = `Cost: ${resource["Cost"]}`;
                                 document.getElementById('language').textContent = resource["Language restriction"];
+                                document.getElementById('condition').textContent = resource["Condition(s)"];
+                                document.getElementById('health-region').textContent = resource["Health Region"];
+                                document.getElementById('virtual-inperson').textContent = resource["Virtual/In-person"];
                                 document.getElementById('age-restriction').textContent = `Age Restriction: ${resource["Age restriction"]}`;
                             } else {
                                 document.getElementById('resource-name').textContent = 'Resource not found.';
