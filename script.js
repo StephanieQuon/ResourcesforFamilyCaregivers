@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const costFilter = document.getElementById('cost-filter');
     const clearFiltersButton = document.getElementById('clear-filters');
 
-    // Initialize Materialize FormSelect
     M.FormSelect.init(document.querySelectorAll('select'));
 
     fetch('resources.csv')
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             const resources = Papa.parse(data, { header: true }).data;
-            console.log('Parsed resources:', resources); // Debug statement
+            console.log('Parsed resources:', resources); // Debug 
             displayResources(resources);
             populateFilters(resources);
             initializeAutocomplete(resources);
@@ -86,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function initializeAutocomplete(resources) {
         const autocompleteData = {};
         resources.forEach(resource => {
-            autocompleteData[resource['Name of Organization']] = null; // You can add an image URL if you have one
+            autocompleteData[resource['Name of Organization']] = null; 
         });
 
         M.Autocomplete.init(searchInput, {

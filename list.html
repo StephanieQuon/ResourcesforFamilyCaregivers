@@ -4,141 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BC Healthcare Resources for Family Caregivers</title>
-    <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Roboto Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #ffffff;
-            font-family: 'Roboto', sans-serif;
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .header-title {
-            color: #163647;
-            font-size: 1.9em;
-        }
-        .logo-space {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 150px; 
-            margin-bottom: 20px;
-        }
-        .logo-space img {
-            max-height: 100%;
-            max-width: 100%;
-        }
-        .search-bar {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .search-bar input {
-            width: 100%;
-            padding: 10px 40px 10px 20px;
-            border-radius: 10px;
-            border: 1px solid #71A7B0;
-            font-size: 16px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .search-bar .material-icons {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #71A7B0;
-        }
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .filters .input-field {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        .filters .input-field select {
-            background-color: #fff;
-        }
-        .filter-button, .btn {
-            background-color: #71A7B0;
-            color: #fff;
-        }
-        .resource-card {
-            margin: 15px 0;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .resource-card h5 {
-            margin-top: 0;
-            color: #163647;
-        }
-        .resource-card p {
-            margin: 5px 0;
-        }
-        .resource-card .condition {
-            font-weight: bold;
-        }
-        @media (max-width: 768px) {
-            .header-title {
-                font-size: 1.5em;
-            }
-            .logo-space {
-                height: 100px;
-            }
-            .search-bar input {
-                padding: 10px 40px 10px 15px;
-            }
-            .resource-card {
-                padding: 15px;
-                flex-direction: column;
-                text-align: center; 
-            }
-            .resource-card h5 {
-                margin-bottom: 10px;
-            }
-            .resource-card p {
-                margin: 5px 0;
-            }
-            .resource-card .condition {
-                font-weight: bold;
-            }
-        }
-        @media (max-width: 480px) {
-            .header-title {
-                font-size: 1.2em;
-            }
-            .logo-space {
-                height: 80px;
-            }
-            .search-bar input {
-                padding: 10px 35px 10px 10px;
-            }
-            .filters .input-field {
-                width: 100%;
-            }
-            .resource-card {
-                padding: 10px;
-            }
-        }
-        /* Force dropdowns to always drop downward */
-        .dropdown-content {
-            transform-origin: 0 0 !important;
-            top: 100% !important;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
@@ -152,54 +21,12 @@
             </ul>
         </div>
     </nav>
-    <style>
-        .nav-wrapper ul li a {
-            color: #F9D289;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            font-size: 1.2em;
-            padding: 0 15px;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            border-bottom: 2px solid #F9D289;
-        }
-    </style>
 
     <div class="container">
         <div class="logo-space">
             <img src="logo.png" alt="Logo">
         </div>
         <h1 class="center-align header-title">BC Healthcare Resources for Family Caregivers</h1>
-        <div class="row">
-            <div class="col s12 search-bar">
-                <input id="search" type="text" class="autocomplete validate" placeholder="Search for Resources">
-                <i class="material-icons">search</i>
-            </div>            
-        </div>
-        <div class="row filters">
-            <div class="input-field col s12 m3">
-                <select id="condition-filter">
-                    <option value="" disabled selected>Filter by Condition</option>
-                </select>
-                <label>Condition</label>
-            </div>
-            <div class="input-field col s12 m3">
-                <select id="region-filter">
-                    <option value="" disabled selected>Filter by Health Region</option>
-                </select>
-                <label>Health Region</label>
-            </div>
-            <div class="input-field col s12 m3">
-                <select id="cost-filter">
-                    <option value="" disabled selected>Filter by Cost</option>
-                </select>
-                <label>Cost</label>
-            </div>
-            <div class="input-field col s12 m3">
-                <a href="#" id="clear-filters" class="btn filter-button">Clear Filters</a>
-            </div>
-        </div>
         <div id="resource-list" class="row"></div>
     </div>
 
