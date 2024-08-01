@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const costFilters = document.getElementById('cost-filters');
     const virtualFilter = document.getElementById('virtual-filter');
     const clearFiltersButton = document.getElementById('clear-filters');
-    const filterBubbles = {};
+    const filterBubbles = {
+        'region': new Set(),
+        'cost': new Set(),
+        'virtual': new Set()
+    };
 
     M.FormSelect.init(document.querySelectorAll('select'));
 
@@ -19,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             const resources = Papa.parse(data, { header: true }).data;
-            console.log('Parsed resources:', resources); 
+            console.log('Parsed resources:', resources); // Debug 
             displayResources(resources);
             populateFilters(resources);
             initializeAutocomplete(resources);
@@ -96,17 +100,26 @@ document.addEventListener('DOMContentLoaded', function () {
             bubble.addEventListener('click', () => toggleFilter(bubble, 'virtual'));
             virtualFilter.appendChild(bubble);
         });
+
+        // Initialize the resources list with current filter settings
+        filterResources();
     }
 
     function toggleFilter(bubble, type) {
         const value = bubble.dataset.value;
 
+        // Unselect all bubbles of the same type
         document.querySelectorAll(`#${type}-filters .filter-bubble`).forEach(b => {
             if (b !== bubble) b.classList.remove('selected');
         });
 
+        // Select or unselect the clicked bubble
         bubble.classList.toggle('selected');
-        filterBubbles[type] = bubble.classList.contains('selected') ? new Set([value]) : new Set();
+        if (bubble.classList.contains('selected')) {
+            filterBubbles[type].add(value);
+        } else {
+            filterBubbles[type].delete(value);
+        }
 
         filterResources();
     }
@@ -114,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function initializeAutocomplete(resources) {
         const autocompleteData = {};
         resources.forEach(resource => {
-            autocompleteData[resource['Name of Organization']] = null; 
+            autocompleteData[resource['Name of Organization']] = null;
         });
 
         M.Autocomplete.init(searchInput, {
@@ -130,9 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
     clearFiltersButton.addEventListener('click', () => {
         searchInput.value = '';
         conditionFilter.selectedIndex = 0;
-        regionFilters.querySelectorAll('.filter-bubble').forEach(bubble => bubble.classList.remove('selected'));
-        costFilters.querySelectorAll('.filter-bubble').forEach(bubble => bubble.classList.remove('selected'));
-        virtualFilter.querySelectorAll('.filter-bubble').forEach(bubble => bubble.classList.remove('selected'));
+        document.querySelectorAll('.filter-bubble.selected').forEach(bubble => bubble.classList.remove('selected'));
         filterBubbles['region'] = new Set();
         filterBubbles['cost'] = new Set();
         filterBubbles['virtual'] = new Set();
@@ -174,4 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
             link.classList.add("active");
         }
     });
+
+    // Initial filtering
+    filterResources();
 });
