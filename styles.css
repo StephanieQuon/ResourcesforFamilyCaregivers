@@ -179,3 +179,8 @@ body {
     transform-origin: 0 0 !important;
     top: 100% !important;
 }
+
+.chip:hover, .chip.active {
+    background-color: #F9D289;
+    color: #163647;
+}

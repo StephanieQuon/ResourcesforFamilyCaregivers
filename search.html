@@ -30,13 +30,21 @@
                 <i class="material-icons">search</i>
             </div>            
         </div>
-        <div class="search-suggestions">
-            <div class="chip" onclick="search('Cancer')">Cancer</div>
-            <div class="chip" onclick="search('Vascular')">Vascular</div>
-            <div class="chip" onclick="search('Diabetes')">Diabetes</div>
-            <div class="chip" onclick="search('Dementia')">Dementia</div>
-            <div class="chip" onclick="search('COVID')">COVID</div>
+        
+        <div class="row">
+            <div class="col s12 center-align">
+                <div class="search-suggestions">
+                    <span style="font-weight: bold;">Suggestions:  </span>
+                    <div class="chip" onclick="search('Cancer')">Cancer</div>
+                    <div class="chip" onclick="search('Vascular')">Vascular</div>
+                    <div class="chip" onclick="search('Diabetes')">Diabetes</div>
+                    <div class="chip" onclick="search('Dementia')">Dementia</div>
+                    <div class="chip" onclick="search('COVID')">COVID</div>
+                </div>
+            </div>
         </div>
+
+        
         <div id="resource-list" class="row"></div>
     </div>
 
@@ -50,4 +58,3 @@
     </script>
 </body>
 </html>
-
