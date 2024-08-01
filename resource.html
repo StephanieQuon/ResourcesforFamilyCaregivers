@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resourcestyles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
@@ -15,7 +14,7 @@
     <div class="container">
         <div class="back-button">
             <i class="material-icons">arrow_back</i>
-            <a href="search.html">Back</a>
+            <a id="back-link">Back</a>
         </div>
         <div class="resource-details">
             <div class="header">
@@ -24,9 +23,7 @@
             <div class="services">
                 <p id="services-offered">Services offered</p>
             </div>
-            <div class="tags" id="tags">
-                <!-- Tags added here -->
-            </div>
+            <div class="tags" id="tags"></div>
             <div class="details">
                 <div class="detail" id="condition-detail">
                     <div class="detail-icon"><i class="material-icons">healing</i></div>
@@ -68,7 +65,6 @@
                     <div class="detail-icon"><i class="material-icons">info</i></div>
                     <div class="detail-text" id="status">Status</div>
                 </div>
-                &nbsp;
                 <div class="detail spacing">
                     <div class="detail-text" id="age-restriction">Age restriction</div>
                 </div>
@@ -76,9 +72,22 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function() {
             const params = new URLSearchParams(window.location.search);
+            const source = params.get('source');
             const resourceName = params.get('name');
+
+            console.log(`Source: ${source}, Resource Name: ${resourceName}`);
+
+            const backLink = document.getElementById('back-link');
+
+            if (source === 'browse') {
+                backLink.setAttribute('href', 'browse.html');
+            } else if (source === 'list') {
+                backLink.setAttribute('href', 'list.html');
+            } else {
+                backLink.setAttribute('href', 'search.html');
+            }
 
             fetch('resources.csv')
                 .then(response => response.text())
@@ -87,15 +96,16 @@
                         header: true,
                         complete: function(results) {
                             const resources = results.data;
+                            console.log('Parsed resources:', resources); // Debug statement
+
                             const resource = resources.find(row => row["Name of Organization"].trim() === resourceName.trim());
+                            console.log('Found resource:', resource); // Debug statement
 
                             if (resource) {
                                 document.getElementById('resource-name').textContent = resource["Name of Organization"];
                                 document.getElementById('services-offered').textContent = resource["Services offered"];
-
                                 const tags = resource["Tag"].split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('');
                                 document.getElementById('tags').innerHTML = tags;
-
                                 document.getElementById('address').textContent = resource["Address"];
                                 document.getElementById('phone').textContent = resource["Contact phone number"];
                                 document.getElementById('website').innerHTML = `<a href="${resource["Contact website"]}" target="_blank">${resource["Contact website"]}</a>`;
@@ -110,9 +120,13 @@
                             } else {
                                 document.getElementById('resource-name').textContent = 'Resource not found.';
                             }
+                        },
+                        error: function(error) {
+                            console.error('PapaParse error:', error); // Debug statement
                         }
                     });
-                });
+                })
+                .catch(error => console.error('Fetch error:', error)); // Debug statement
         });
     </script>
 </body>
