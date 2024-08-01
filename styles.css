@@ -115,16 +115,29 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.nav-bar {
+    background-color: #ffffff; /* White background for the navigation bar */
+    border-bottom: 1px solid #f0f0f0; /* Optional: Add a light border at the bottom */
+}
+
 .nav-wrapper ul li a {
-    color: #F9D289;
+    color: #163647; /* Dark blue text color */
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 1.2em;
     padding: 0 15px;
+    text-transform: capitalize;
 }
 
 .nav-link:hover, .nav-link.active {
-    border-bottom: 2px solid #F9D289;
+    font-weight: bold; /* Bold text for the active or hovered link */
+    border-bottom: 2px solid #163647; /* Dark blue underline for active or hovered link */
+    color: #163647; /* Keep the text dark blue when active or hovered */
+}
+
+/* Ensure the hover and active state underline remains */
+.nav-link.active {
+    border-bottom: 2px solid #163647;
 }
 
 @media (max-width: 768px) {
