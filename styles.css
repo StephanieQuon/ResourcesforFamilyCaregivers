@@ -39,7 +39,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar .material-icons {
+.search-bar .search-icon {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -47,12 +47,39 @@ body {
     color: #71A7B0;
 }
 
-.filters {
+.side-panel {
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group h6 {
+    margin-top: 0;
+    color: #163647;
+}
+
+.filter-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.filter-bubble {
+    padding: 10px 15px;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-bubble.selected {
+    background-color: #163647;
+    color: #fff;
 }
 
 .filters .input-field {
@@ -92,13 +119,6 @@ body {
 
 .resource-card .condition {
     font-weight: bold;
-}
-
-.side-panel {
-    padding: 15px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .resource-grid {

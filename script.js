@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const resourceList = document.getElementById('resource-list');
     const searchInput = document.getElementById('search');
     const conditionFilter = document.getElementById('condition-filter');
-    const regionFilter = document.getElementById('region-filter');
-    const costFilter = document.getElementById('cost-filter');
+    const regionFilters = document.getElementById('region-filters');
+    const costFilters = document.getElementById('cost-filters');
+    const virtualFilter = document.getElementById('virtual-filter');
     const clearFiltersButton = document.getElementById('clear-filters');
+    const filterBubbles = {};
 
     M.FormSelect.init(document.querySelectorAll('select'));
 
@@ -47,16 +49,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const conditions = new Set();
         const regions = new Set();
         const costs = new Set();
+        const virtualOptions = new Set();
 
         resources.forEach(resource => {
             resource['Condition(s)'].split(';').forEach(condition => conditions.add(condition.trim()));
             regions.add(resource['Health Region']);
             costs.add(resource['Cost']);
+            virtualOptions.add(resource['Virtual/In-person']);
         });
 
         const sortedConditions = Array.from(conditions).sort();
         const sortedRegions = Array.from(regions).sort();
         const sortedCosts = Array.from(costs).sort();
+        const sortedVirtualOptions = Array.from(virtualOptions).sort();
 
         sortedConditions.forEach(condition => {
             const option = document.createElement('option');
@@ -66,20 +71,45 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         sortedRegions.forEach(region => {
-            const option = document.createElement('option');
-            option.value = region;
-            option.textContent = region;
-            regionFilter.appendChild(option);
+            const bubble = document.createElement('div');
+            bubble.className = 'filter-bubble';
+            bubble.textContent = region;
+            bubble.dataset.value = region;
+            bubble.addEventListener('click', () => toggleFilter(bubble, 'region'));
+            regionFilters.appendChild(bubble);
         });
 
         sortedCosts.forEach(cost => {
-            const option = document.createElement('option');
-            option.value = cost;
-            option.textContent = cost;
-            costFilter.appendChild(option);
+            const bubble = document.createElement('div');
+            bubble.className = 'filter-bubble';
+            bubble.textContent = cost;
+            bubble.dataset.value = cost;
+            bubble.addEventListener('click', () => toggleFilter(bubble, 'cost'));
+            costFilters.appendChild(bubble);
         });
 
-        M.FormSelect.init(document.querySelectorAll('select'));
+        sortedVirtualOptions.forEach(option => {
+            const bubble = document.createElement('div');
+            bubble.className = 'filter-bubble';
+            bubble.textContent = option;
+            bubble.dataset.value = option;
+            bubble.addEventListener('click', () => toggleFilter(bubble, 'virtual'));
+            virtualFilter.appendChild(bubble);
+        });
+    }
+
+    function toggleFilter(bubble, type) {
+        const value = bubble.dataset.value;
+        bubble.classList.toggle('selected');
+        filterBubbles[type] = filterBubbles[type] || new Set();
+        
+        if (bubble.classList.contains('selected')) {
+            filterBubbles[type].add(value);
+        } else {
+            filterBubbles[type].delete(value);
+        }
+
+        filterResources();
     }
 
     function initializeAutocomplete(resources) {
@@ -98,13 +128,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     searchInput.addEventListener('input', () => filterResources());
     conditionFilter.addEventListener('change', () => filterResources());
-    regionFilter.addEventListener('change', () => filterResources());
-    costFilter.addEventListener('change', () => filterResources());
     clearFiltersButton.addEventListener('click', () => {
         searchInput.value = '';
         conditionFilter.selectedIndex = 0;
-        regionFilter.selectedIndex = 0;
-        costFilter.selectedIndex = 0;
+        regionFilters.querySelectorAll('.filter-bubble').forEach(bubble => bubble.classList.remove('selected'));
+        costFilters.querySelectorAll('.filter-bubble').forEach(bubble => bubble.classList.remove('selected'));
+        virtualFilter.querySelectorAll('.filter-bubble').forEach(bubble => bubble.classList.remove('selected'));
+        filterBubbles['region'] = new Set();
+        filterBubbles['cost'] = new Set();
+        filterBubbles['virtual'] = new Set();
         M.FormSelect.init(document.querySelectorAll('select'));
         filterResources();
     });
@@ -112,8 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function filterResources() {
         const searchValue = searchInput.value.toLowerCase();
         const conditionValue = conditionFilter.value;
-        const regionValue = regionFilter.value;
-        const costValue = costFilter.value;
 
         fetch('resources.csv')
             .then(response => response.text())
@@ -126,21 +156,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (conditionValue) {
                     resources = resources.filter(resource => resource['Condition(s)'].includes(conditionValue));
                 }
-                if (regionValue) {
-                    resources = resources.filter(resource => resource['Health Region'] === regionValue);
+                if (filterBubbles['region'].size > 0) {
+                    resources = resources.filter(resource => filterBubbles['region'].has(resource['Health Region']));
                 }
-                if (costValue) {
-                    resources = resources.filter(resource => resource['Cost'] === costValue);
+                if (filterBubbles['cost'].size > 0) {
+                    resources = resources.filter(resource => filterBubbles['cost'].has(resource['Cost']));
+                }
+                if (filterBubbles['virtual'].size > 0) {
+                    resources = resources.filter(resource => filterBubbles['virtual'].has(resource['Virtual/In-person']));
                 }
 
                 displayResources(resources);
             });
     }
-});
 
-document.addEventListener("DOMContentLoaded", function() {
-    const links = document.querySelectorAll(".nav-link");
-    links.forEach(link => {
+    document.querySelectorAll(".nav-link").forEach(link => {
         if (link.href === window.location.href) {
             link.classList.add("active");
         }

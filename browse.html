@@ -6,9 +6,7 @@
     <title>Browse Resources</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-   
 </head>
 <body>
     <nav class="nav-bar">
@@ -30,15 +28,17 @@
                             <option value="" disabled selected>Choose Condition</option>
                         </select>
                     </div>
-                    <div class="input-field">
-                        <select id="region-filter">
-                            <option value="" disabled selected>Choose Region</option>
-                        </select>
+                    <div class="filter-group">
+                        <h6>Regions</h6>
+                        <div id="region-filters" class="filter-container"></div>
                     </div>
-                    <div class="input-field">
-                        <select id="cost-filter">
-                            <option value="" disabled selected>Choose Cost</option>
-                        </select>
+                    <div class="filter-group">
+                        <h6>Cost</h6>
+                        <div id="cost-filters" class="filter-container"></div>
+                    </div>
+                    <div class="filter-group">
+                        <h6>Virtual/In-person</h6>
+                        <div id="virtual-filter" class="filter-container"></div>
                     </div>
                     <button id="clear-filters" class="btn">Clear Filters</button>
                 </div>
@@ -46,6 +46,7 @@
             <div class="col s12 m8 l9">
                 <div class="search-bar">
                     <input id="search" type="text" class="autocomplete validate" placeholder="Search for Resources">
+                    <i class="material-icons search-icon">search</i>
                 </div>
                 <div id="resource-list" class="resource-grid"></div>
             </div>
@@ -57,3 +58,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
