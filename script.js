@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             const resources = Papa.parse(data, { header: true }).data;
-            console.log('Parsed resources:', resources); // Debug 
+            console.log('Parsed resources:', resources); 
             displayResources(resources);
             populateFilters(resources);
             initializeAutocomplete(resources);
@@ -100,14 +100,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function toggleFilter(bubble, type) {
         const value = bubble.dataset.value;
+
+        document.querySelectorAll(`#${type}-filters .filter-bubble`).forEach(b => {
+            if (b !== bubble) b.classList.remove('selected');
+        });
+
         bubble.classList.toggle('selected');
-        filterBubbles[type] = filterBubbles[type] || new Set();
-        
-        if (bubble.classList.contains('selected')) {
-            filterBubbles[type].add(value);
-        } else {
-            filterBubbles[type].delete(value);
-        }
+        filterBubbles[type] = bubble.classList.contains('selected') ? new Set([value]) : new Set();
 
         filterResources();
     }

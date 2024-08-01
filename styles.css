@@ -72,7 +72,7 @@ body {
 .filter-bubble {
     padding: 10px 15px;
     border-radius: 15px;
-    background-color: #f5f5f5;
+    background-color: #e0e0e0; 
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -136,12 +136,12 @@ body {
 }
 
 .nav-bar {
-    background-color: #ffffff; /* White background for the navigation bar */
-    border-bottom: 1px solid #f0f0f0; /* Optional: Add a light border at the bottom */
+    background-color: #ffffff; 
+    border-bottom: 1px solid #f0f0f0; 
 }
 
 .nav-wrapper ul li a {
-    color: #163647; /* Dark blue text color */
+    color: #163647; 
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 1.2em;
@@ -150,12 +150,11 @@ body {
 }
 
 .nav-link:hover, .nav-link.active {
-    font-weight: bold; /* Bold text for the active or hovered link */
-    border-bottom: 2px solid #163647; /* Dark blue underline for active or hovered link */
-    color: #163647; /* Keep the text dark blue when active or hovered */
+    font-weight: bold; 
+    border-bottom: 2px solid #163647; 
+    color: #163647;
 }
 
-/* Ensure the hover and active state underline remains */
 .nav-link.active {
     border-bottom: 2px solid #163647;
 }
