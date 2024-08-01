@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     M.FormSelect.init(document.querySelectorAll('select'));
 
-    fetch('resources.csv')
+    fetch('files/resources.csv')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
