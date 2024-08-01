@@ -29,29 +29,13 @@
             <div class="col s12 search-bar">
                 <input id="search" type="text" class="autocomplete validate" placeholder="Search for Resources">
                 <i class="material-icons">search</i>
-            </div>            
+            </div>
         </div>
-        <div class="row filters">
-            <div class="input-field col s12 m3">
-                <select id="condition-filter">
-                    <option value="" disabled selected>Filter by Condition</option>
-                </select>
-                <label>Condition</label>
-            </div>
-            <div class="input-field col s12 m3">
-                <select id="region-filter">
-                    <option value="" disabled selected>Filter by Health Region</option>
-                </select>
-                <label>Health Region</label>
-            </div>
-            <div class="input-field col s12 m3">
-                <select id="cost-filter">
-                    <option value="" disabled selected>Filter by Cost</option>
-                </select>
-                <label>Cost</label>
-            </div>
-            <div class="input-field col s12 m3">
-                <a href="#" id="clear-filters" class="btn filter-button">Clear Filters</a>
+        <div class="row">
+            <div class="col s12">
+                <div id="suggestions" class="suggestions">
+                    <!-- Bubbles will be inserted here by JavaScript -->
+                </div>
             </div>
         </div>
         <div id="resource-list" class="row"></div>

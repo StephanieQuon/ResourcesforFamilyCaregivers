@@ -120,7 +120,7 @@ body {
         padding: 10px;
     }
 }
-/* Force dropdowns to always drop downward */
+
 .dropdown-content {
     transform-origin: 0 0 !important;
     top: 100% !important;
@@ -148,4 +148,32 @@ body {
 
 .nav-link.active {
     border-bottom: 2px solid #163647;
+}
+
+/* Hide resource cards by default */
+.hidden {
+    display: none;
+}
+
+/* Suggestion bubbles styling */
+.suggestions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Reduced gap between bubbles */
+    margin-top: -25px; /* Reduced space between search bar and bubbles */
+}
+
+.suggestion-bubble {
+    padding: 8px 12px; /* Slightly smaller bubbles */
+    font-size: 0.9em; /* Slightly smaller text */
+    border-radius: 15px; /* Adjusted border radius for smaller bubbles */
+    background-color: #E0E0E0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.suggestion-bubble.selected {
+    background-color: #163647;
+    color: white;
 }

@@ -1,13 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
     const resourceList = document.getElementById('resource-list');
     const searchInput = document.getElementById('search');
-    const conditionFilter = document.getElementById('condition-filter');
-    const regionFilter = document.getElementById('region-filter');
-    const costFilter = document.getElementById('cost-filter');
-    const clearFiltersButton = document.getElementById('clear-filters');
+    const suggestionsContainer = document.getElementById('suggestions');
 
-    // Initialize Materialize FormSelect
-    M.FormSelect.init(document.querySelectorAll('select'));
+    if (!resourceList || !searchInput || !suggestionsContainer) {
+        console.error('Required elements are missing from the page.');
+        return;
+    }
+
+    resourceList.classList.add('hidden'); // Hide resources initially
+
+    let resources = []; // Store the resources globally
 
     fetch('files/resources.csv')
         .then(response => {
@@ -17,19 +20,21 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.text();
         })
         .then(data => {
-            const resources = Papa.parse(data, { header: true }).data;
-            console.log('Parsed resources:', resources); // Debug statement
-            displayResources(resources);
-            populateFilters(resources);
-            initializeAutocomplete(resources);
+            resources = Papa.parse(data, { header: true }).data;
+            // Do not display resources until a search is performed
         })
         .catch(error => {
             console.error('Error fetching or parsing the CSV file:', error);
         });
 
-    function displayResources(resources) {
+    function displayResources(filteredResources) {
+        if (filteredResources.length === 0) {
+            resourceList.classList.add('hidden');
+            return;
+        }
+        
         resourceList.innerHTML = '';
-        resources.forEach(resource => {
+        filteredResources.forEach(resource => {
             const resourceCard = document.createElement('div');
             resourceCard.className = 'resource-card';
             resourceCard.innerHTML = `
@@ -42,101 +47,60 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             resourceList.appendChild(resourceCard);
         });
+
+        resourceList.classList.remove('hidden');
     }
-
-    function populateFilters(resources) {
-        const conditions = new Set();
-        const regions = new Set();
-        const costs = new Set();
-
-        resources.forEach(resource => {
-            resource['Condition(s)'].split(';').forEach(condition => conditions.add(condition.trim()));
-            regions.add(resource['Health Region']);
-            costs.add(resource['Cost']);
-        });
-
-        const sortedConditions = Array.from(conditions).sort();
-        const sortedRegions = Array.from(regions).sort();
-        const sortedCosts = Array.from(costs).sort();
-
-        sortedConditions.forEach(condition => {
-            const option = document.createElement('option');
-            option.value = condition;
-            option.textContent = condition;
-            conditionFilter.appendChild(option);
-        });
-
-        sortedRegions.forEach(region => {
-            const option = document.createElement('option');
-            option.value = region;
-            option.textContent = region;
-            regionFilter.appendChild(option);
-        });
-
-        sortedCosts.forEach(cost => {
-            const option = document.createElement('option');
-            option.value = cost;
-            option.textContent = cost;
-            costFilter.appendChild(option);
-        });
-
-        M.FormSelect.init(document.querySelectorAll('select'));
-    }
-
-    function initializeAutocomplete(resources) {
-        const autocompleteData = {};
-        resources.forEach(resource => {
-            autocompleteData[resource['Name of Organization']] = null; // You can add an image URL if you have one
-        });
-
-        M.Autocomplete.init(searchInput, {
-            data: autocompleteData,
-            onAutocomplete: function() {
-                filterResources();
-            }
-        });
-    }
-
-    searchInput.addEventListener('input', () => filterResources());
-    conditionFilter.addEventListener('change', () => filterResources());
-    regionFilter.addEventListener('change', () => filterResources());
-    costFilter.addEventListener('change', () => filterResources());
-    clearFiltersButton.addEventListener('click', () => {
-        searchInput.value = '';
-        conditionFilter.selectedIndex = 0;
-        regionFilter.selectedIndex = 0;
-        costFilter.selectedIndex = 0;
-        M.FormSelect.init(document.querySelectorAll('select'));
-        filterResources();
-    });
 
     function filterResources() {
-        const searchValue = searchInput.value.toLowerCase();
-        const conditionValue = conditionFilter.value;
-        const regionValue = regionFilter.value;
-        const costValue = costFilter.value;
+        const searchValue = searchInput ? searchInput.value.toLowerCase() : '';
 
-        fetch('files/resources.csv')
-            .then(response => response.text())
-            .then(data => {
-                let resources = Papa.parse(data, { header: true }).data;
-
-                if (searchValue) {
-                    resources = resources.filter(resource => resource['Name of Organization'].toLowerCase().includes(searchValue));
-                }
-                if (conditionValue) {
-                    resources = resources.filter(resource => resource['Condition(s)'].includes(conditionValue));
-                }
-                if (regionValue) {
-                    resources = resources.filter(resource => resource['Health Region'] === regionValue);
-                }
-                if (costValue) {
-                    resources = resources.filter(resource => resource['Cost'] === costValue);
-                }
-
-                displayResources(resources);
-            });
+        if (searchValue) {
+            const filteredResources = resources.filter(resource => 
+                resource['Name of Organization'].toLowerCase().includes(searchValue) ||
+                resource['Tag'].toLowerCase().includes(searchValue)
+            );
+            displayResources(filteredResources);
+        } else {
+            resourceList.classList.add('hidden'); // Hide resources if search is empty
+        }
     }
+
+    searchInput.addEventListener('input', () => {
+        filterResources();
+
+        // Update bubble highlighting based on search input
+        document.querySelectorAll('.suggestion-bubble').forEach(bubble => {
+            if (searchInput.value.toLowerCase() === bubble.dataset.value) {
+                bubble.classList.add('selected');
+            } else {
+                bubble.classList.remove('selected');
+            }
+        });
+    });
+
+    // Populate suggestion bubbles
+    const suggestions = ['COVID', 'Cancer', 'ALS', 'Diabetes', 'Palliative', 'Child Health'];
+    suggestions.forEach(suggestion => {
+        const bubble = document.createElement('div');
+        bubble.className = 'suggestion-bubble';
+        bubble.textContent = suggestion;
+        bubble.dataset.value = suggestion.toLowerCase();
+
+        bubble.addEventListener('click', () => {
+            if (bubble.classList.contains('selected')) {
+                searchInput.value = '';
+                document.querySelectorAll('.suggestion-bubble').forEach(b => b.classList.remove('selected'));
+                filterResources();
+            } else {
+                searchInput.value = bubble.dataset.value;
+                filterResources();
+                document.querySelectorAll('.suggestion-bubble').forEach(b => b.classList.remove('selected'));
+                bubble.classList.add('selected');
+            }
+        });
+
+        suggestionsContainer.appendChild(bubble);
+    });
 
     function setActiveNavLink() {
         document.querySelectorAll(".nav-link").forEach(link => {

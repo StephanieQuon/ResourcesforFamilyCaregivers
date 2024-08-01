@@ -70,6 +70,9 @@ body {
 .detail-text {
     font-size: 1em;
 }
+.detail-text strong {
+    font-weight: bold;
+}
 .spacing {
     margin-bottom: 20px; 
 }

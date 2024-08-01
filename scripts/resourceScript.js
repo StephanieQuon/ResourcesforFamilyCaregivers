@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById('language').textContent = `Language: ${resource["Language restriction"]}`;
                         document.getElementById('condition').textContent = `Condition(s): ${resource["Condition(s)"]}`;
                         document.getElementById('health-region').textContent = `Health Region: ${resource["Health Region"]}`;
-                        document.getElementById('virtual-inperson').textContent = resource["Virtual/In-person"];
+                        document.getElementById('virtual-inperson').textContent = `Service Type: ${resource["Virtual/In-person"]}`;
                         document.getElementById('age-restriction').textContent = `Age Restriction: ${resource["Age restriction"]}`;
                     } else {
                         document.getElementById('resource-name').textContent = 'Resource not found.';
