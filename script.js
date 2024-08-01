@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
         'virtual': new Set()
     };
 
+    let allResources = []; // To store all resources
+
     M.FormSelect.init(document.querySelectorAll('select'));
 
     fetch('resources.csv')
@@ -23,10 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             const resources = Papa.parse(data, { header: true }).data;
-            console.log('Parsed resources:', resources); // Debug 
+            allResources = resources; // Store the data in a variable
+            console.log('Parsed resources:', resources); // Debug
             displayResources(resources);
             populateFilters(resources);
             initializeAutocomplete(resources);
+            filterResources(); // Ensure filtering is applied on initial load
         })
         .catch(error => {
             console.error('Error fetching or parsing the CSV file:', error);
@@ -100,9 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
             bubble.addEventListener('click', () => toggleFilter(bubble, 'virtual'));
             virtualFilter.appendChild(bubble);
         });
-
-        // Initialize the resources list with current filter settings
-        filterResources();
     }
 
     function toggleFilter(bubble, type) {
@@ -121,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             filterBubbles[type].delete(value);
         }
 
+        console.log('Filter bubbles:', filterBubbles); // Debug
         filterResources();
     }
 
@@ -155,37 +157,37 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchValue = searchInput.value.toLowerCase();
         const conditionValue = conditionFilter.value;
 
-        fetch('resources.csv')
-            .then(response => response.text())
-            .then(data => {
-                let resources = Papa.parse(data, { header: true }).data;
+        let filteredResources = allResources.slice(); // Copy of all resources
 
-                if (searchValue) {
-                    resources = resources.filter(resource => resource['Name of Organization'].toLowerCase().includes(searchValue));
-                }
-                if (conditionValue) {
-                    resources = resources.filter(resource => resource['Condition(s)'].includes(conditionValue));
-                }
-                if (filterBubbles['region'].size > 0) {
-                    resources = resources.filter(resource => filterBubbles['region'].has(resource['Health Region']));
-                }
-                if (filterBubbles['cost'].size > 0) {
-                    resources = resources.filter(resource => filterBubbles['cost'].has(resource['Cost']));
-                }
-                if (filterBubbles['virtual'].size > 0) {
-                    resources = resources.filter(resource => filterBubbles['virtual'].has(resource['Virtual/In-person']));
-                }
+        if (searchValue) {
+            filteredResources = filteredResources.filter(resource => resource['Name of Organization'].toLowerCase().includes(searchValue));
+        }
+        if (conditionValue) {
+            filteredResources = filteredResources.filter(resource => resource['Condition(s)'].includes(conditionValue));
+        }
+        if (filterBubbles['region'].size > 0) {
+            filteredResources = filteredResources.filter(resource => filterBubbles['region'].has(resource['Health Region']));
+        }
+        if (filterBubbles['cost'].size > 0) {
+            filteredResources = filteredResources.filter(resource => filterBubbles['cost'].has(resource['Cost']));
+        }
+        if (filterBubbles['virtual'].size > 0) {
+            filteredResources = filteredResources.filter(resource => filterBubbles['virtual'].has(resource['Virtual/In-person']));
+        }
 
-                displayResources(resources);
-            });
+        console.log('Filtered resources:', filteredResources); // Debug
+        displayResources(filteredResources);
     }
 
-    document.querySelectorAll(".nav-link").forEach(link => {
-        if (link.href === window.location.href) {
-            link.classList.add("active");
-        }
-    });
+    function setActiveNavLink() {
+        document.querySelectorAll(".nav-link").forEach(link => {
+            const linkUrl = new URL(link.href).pathname;
+            const currentUrl = new URL(window.location.href).pathname;
+            if (linkUrl === currentUrl) {
+                link.classList.add("active");
+            }
+        });
+    }
 
-    // Initial filtering
-    filterResources();
+    setActiveNavLink();
 });
