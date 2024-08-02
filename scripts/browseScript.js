@@ -6,13 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const costFilters = document.getElementById('cost-filters');
     const virtualFilter = document.getElementById('virtual-filter');
     const clearFiltersButton = document.getElementById('clear-filters');
+    const searchStatus = document.getElementById('search-status');
+    const noResultsMessage = document.getElementById('no-results-message');
+    const resultsCount = document.getElementById('results-count');
+    
     const filterBubbles = {
         'region': new Set(),
         'cost': new Set(),
         'virtual': new Set()
     };
 
-    let allResources = []; // To store all resources
+    let allResources = []; 
 
     M.FormSelect.init(document.querySelectorAll('select'));
 
@@ -25,12 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             const resources = Papa.parse(data, { header: true }).data;
-            allResources = resources; // Store the data in a variable
-            console.log('Parsed resources:', resources); // Debug
+            allResources = resources; 
+            console.log('Parsed resources:', resources); 
             displayResources(resources);
             populateFilters(resources);
             initializeAutocomplete(resources);
-            filterResources(); // Ensure filtering is applied on initial load
+            filterResources();
+            resultsCount.textContent = `Number of results found: ${resources.length}`; 
         })
         .catch(error => {
             console.error('Error fetching or parsing the CSV file:', error);
@@ -51,6 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             resourceList.appendChild(resourceCard);
         });
+
+        resultsCount.textContent = `Number of results found: ${resources.length}`;
     }
 
     function populateFilters(resources) {
@@ -71,12 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const sortedCosts = Array.from(costs).sort();
         const sortedVirtualOptions = Array.from(virtualOptions).sort();
 
+        conditionFilter.innerHTML = '<option value="" disabled selected>Choose Condition</option>'; 
         sortedConditions.forEach(condition => {
             const option = document.createElement('option');
             option.value = condition;
             option.textContent = condition;
             conditionFilter.appendChild(option);
         });
+
+        M.FormSelect.init(document.querySelectorAll('select'));
 
         sortedRegions.forEach(region => {
             const bubble = document.createElement('div');
@@ -109,12 +119,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function toggleFilter(bubble, type) {
         const value = bubble.dataset.value;
 
-        // Unselect all bubbles of the same type
         document.querySelectorAll(`#${type}-filters .filter-bubble`).forEach(b => {
             if (b !== bubble) b.classList.remove('selected');
         });
 
-        // Select or unselect the clicked bubble
         bubble.classList.toggle('selected');
         if (bubble.classList.contains('selected')) {
             filterBubbles[type].add(value);
@@ -122,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
             filterBubbles[type].delete(value);
         }
 
-        console.log('Filter bubbles:', filterBubbles); // Debug
+        console.log('Filter bubbles:', filterBubbles); 
         filterResources();
     }
 
@@ -149,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function () {
         filterBubbles['region'] = new Set();
         filterBubbles['cost'] = new Set();
         filterBubbles['virtual'] = new Set();
-        M.FormSelect.init(document.querySelectorAll('select'));
         filterResources();
     });
 
@@ -157,37 +164,57 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchValue = searchInput.value.toLowerCase();
         const conditionValue = conditionFilter.value;
 
-        let filteredResources = allResources.slice(); // Copy of all resources
+        let filteredResources = allResources.slice(); 
 
         if (searchValue) {
-            filteredResources = filteredResources.filter(resource => resource['Name of Organization'].toLowerCase().includes(searchValue));
+            filteredResources = filteredResources.filter(resource =>
+                resource['Name of Organization'].toLowerCase().includes(searchValue) ||
+                (resource['Tags'] && resource['Tags'].toLowerCase().includes(searchValue))
+            );
         }
+        
         if (conditionValue) {
             filteredResources = filteredResources.filter(resource => resource['Condition(s)'].includes(conditionValue));
         }
+        
         if (filterBubbles['region'].size > 0) {
             filteredResources = filteredResources.filter(resource => filterBubbles['region'].has(resource['Health Region']));
         }
+        
         if (filterBubbles['cost'].size > 0) {
             filteredResources = filteredResources.filter(resource => filterBubbles['cost'].has(resource['Cost']));
         }
+        
         if (filterBubbles['virtual'].size > 0) {
             filteredResources = filteredResources.filter(resource => filterBubbles['virtual'].has(resource['Virtual/In-person']));
         }
 
-        console.log('Filtered resources:', filteredResources); // Debug
+        if (filteredResources.length === 0) {
+            noResultsMessage.style.display = 'block';
+            resultsCount.style.display = 'none';
+        } else {
+            noResultsMessage.style.display = 'none';
+            resultsCount.style.display = 'block';
+            resultsCount.textContent = `Number of results found: ${filteredResources.length}`;
+        }
+
+        searchStatus.style.display = 'block';
         displayResources(filteredResources);
     }
 
     function setActiveNavLink() {
+        const currentPath = window.location.pathname;
         document.querySelectorAll(".nav-link").forEach(link => {
-            const linkUrl = new URL(link.href).pathname;
-            const currentUrl = new URL(window.location.href).pathname;
-            if (linkUrl === currentUrl) {
+            const linkPath = new URL(link.href, window.location.origin).pathname;
+            console.log(`Current Path: ${currentPath}, Link Path: ${linkPath}`);
+            if (currentPath === linkPath) {
                 link.classList.add("active");
+            } else {
+                link.classList.remove("active");
             }
         });
     }
 
     setActiveNavLink();
 });
+

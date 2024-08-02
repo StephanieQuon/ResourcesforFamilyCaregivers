@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Document loaded.');
+
     const params = new URLSearchParams(window.location.search);
     const source = params.get('source');
     const resourceName = params.get('name');
@@ -7,16 +9,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const backLink = document.getElementById('back-link');
 
-    if (source === 'browse') {
-        backLink.setAttribute('href', 'browse.html');
-    } else if (source === 'list') {
-        backLink.setAttribute('href', 'list.html');
+    if (backLink) {
+        let href;
+        switch (source) {
+            case 'browse':
+                href = 'browse.html';
+                break;
+            case 'list':
+                href = 'list.html';
+                break;
+            default:
+                href = 'search.html';
+        }
+        backLink.setAttribute('href', href);
+        console.log(`Back link set to ${href}`);
     } else {
-        backLink.setAttribute('href', 'search.html');
+        console.error('Back link element not found.');
     }
 
     fetch('files/resources.csv')
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            return response.text();
+        })
         .then(data => {
             Papa.parse(data, {
                 header: true,

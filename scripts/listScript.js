@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const costFilter = document.getElementById('cost-filter');
     const clearFiltersButton = document.getElementById('clear-filters');
 
-    // Initialize Materialize FormSelect
     M.FormSelect.init(document.querySelectorAll('select'));
 
     fetch('files/resources.csv')
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             const resources = Papa.parse(data, { header: true }).data;
-            console.log('Parsed resources:', resources); // Debug statement
+            console.log('Parsed resources:', resources); 
             displayResources(resources);
             populateFilters(resources);
             initializeAutocomplete(resources);
@@ -45,80 +44,94 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function populateFilters(resources) {
-        const conditions = new Set();
-        const regions = new Set();
-        const costs = new Set();
+        const conditions = new Set(resources.map(r => r['Condition(s)']));
+        const regions = new Set(resources.map(r => r['Health Region']));
+        const costs = new Set(resources.map(r => r['Cost']));
 
-        resources.forEach(resource => {
-            resource['Condition(s)'].split(';').forEach(condition => conditions.add(condition.trim()));
-            regions.add(resource['Health Region']);
-            costs.add(resource['Cost']);
-        });
+        populateFilter(conditionFilter, conditions);
+        populateFilter(regionFilter, regions);
+        populateFilter(costFilter, costs);
+    }
 
-        const sortedConditions = Array.from(conditions).sort();
-        const sortedRegions = Array.from(regions).sort();
-        const sortedCosts = Array.from(costs).sort();
-
-        sortedConditions.forEach(condition => {
+    function populateFilter(filter, items) {
+        filter.innerHTML = '';
+        items.forEach(item => {
             const option = document.createElement('option');
-            option.value = condition;
-            option.textContent = condition;
-            conditionFilter.appendChild(option);
+            option.value = item;
+            option.textContent = item;
+            filter.appendChild(option);
         });
-
-        sortedRegions.forEach(region => {
-            const option = document.createElement('option');
-            option.value = region;
-            option.textContent = region;
-            regionFilter.appendChild(option);
-        });
-
-        sortedCosts.forEach(cost => {
-            const option = document.createElement('option');
-            option.value = cost;
-            option.textContent = cost;
-            costFilter.appendChild(option);
-        });
-
-        M.FormSelect.init(document.querySelectorAll('select'));
+        M.FormSelect.init(filter);
     }
 
     function initializeAutocomplete(resources) {
-        const autocompleteData = {};
+        const options = {
+            data: {}
+        };
         resources.forEach(resource => {
-            autocompleteData[resource['Name of Organization']] = null; // You can add an image URL if you have one
+            options.data[resource['Name of Organization']] = null;
         });
-
-        M.Autocomplete.init(searchInput, {
-            data: autocompleteData,
-            onAutocomplete: function() {
-                filterResources();
-            }
-        });
+        const autocomplete = document.querySelector('.autocomplete');
+        M.Autocomplete.init(autocomplete, { data: options.data });
     }
 
-    searchInput.addEventListener('input', () => filterResources());
-    conditionFilter.addEventListener('change', () => filterResources());
-    regionFilter.addEventListener('change', () => filterResources());
-    costFilter.addEventListener('change', () => filterResources());
-    clearFiltersButton.addEventListener('click', () => {
-        searchInput.value = '';
-        conditionFilter.selectedIndex = 0;
-        regionFilter.selectedIndex = 0;
-        costFilter.selectedIndex = 0;
-        M.FormSelect.init(document.querySelectorAll('select'));
-        filterResources();
-    });
-
     function setActiveNavLink() {
+        const currentPath = window.location.pathname;
         document.querySelectorAll(".nav-link").forEach(link => {
-            const linkUrl = new URL(link.href).pathname;
-            const currentUrl = new URL(window.location.href).pathname;
-            if (linkUrl === currentUrl) {
+            const linkPath = new URL(link.href, window.location.origin).pathname;
+            console.log(`Current Path: ${currentPath}, Link Path: ${linkPath}`);
+            if (currentPath === linkPath) {
                 link.classList.add("active");
+            } else {
+                link.classList.remove("active");
             }
         });
     }
 
     setActiveNavLink();
+
+    searchInput.addEventListener('input', function () {
+        const query = searchInput.value.toLowerCase();
+        const filteredResources = resources.filter(resource => 
+            resource['Name of Organization'].toLowerCase().includes(query) ||
+            resource['Condition(s)'].toLowerCase().includes(query) ||
+            resource['Health Region'].toLowerCase().includes(query)
+        );
+        displayResources(filteredResources);
+    });
+
+    conditionFilter.addEventListener('change', function () {
+        filterResources();
+    });
+
+    regionFilter.addEventListener('change', function () {
+        filterResources();
+    });
+
+    costFilter.addEventListener('change', function () {
+        filterResources();
+    });
+
+    clearFiltersButton.addEventListener('click', function () {
+        conditionFilter.value = '';
+        regionFilter.value = '';
+        costFilter.value = '';
+        M.FormSelect.init(conditionFilter);
+        M.FormSelect.init(regionFilter);
+        M.FormSelect.init(costFilter);
+        displayResources(resources);
+    });
+
+    function filterResources() {
+        const selectedCondition = conditionFilter.value;
+        const selectedRegion = regionFilter.value;
+        const selectedCost = costFilter.value;
+
+        const filteredResources = resources.filter(resource => {
+            return (selectedCondition === '' || resource['Condition(s)'] === selectedCondition) &&
+                   (selectedRegion === '' || resource['Health Region'] === selectedRegion) &&
+                   (selectedCost === '' || resource['Cost'] === selectedCost);
+        });
+        displayResources(filteredResources);
+    }
 });

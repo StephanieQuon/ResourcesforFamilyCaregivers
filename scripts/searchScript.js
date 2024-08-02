@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    resourceList.classList.add('hidden'); // Hide resources initially
+    resourceList.classList.add('hidden'); 
 
-    let resources = []; // Store the resources globally
+    let resources = []; 
 
     fetch('files/resources.csv')
         .then(response => {
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             resources = Papa.parse(data, { header: true }).data;
-            // Do not display resources until a search is performed
         })
         .catch(error => {
             console.error('Error fetching or parsing the CSV file:', error);
@@ -61,14 +60,13 @@ document.addEventListener('DOMContentLoaded', function () {
             );
             displayResources(filteredResources);
         } else {
-            resourceList.classList.add('hidden'); // Hide resources if search is empty
+            resourceList.classList.add('hidden'); 
         }
     }
 
     searchInput.addEventListener('input', () => {
         filterResources();
 
-        // Update bubble highlighting based on search input
         document.querySelectorAll('.suggestion-bubble').forEach(bubble => {
             if (searchInput.value.toLowerCase() === bubble.dataset.value) {
                 bubble.classList.add('selected');
@@ -78,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Populate suggestion bubbles
     const suggestions = ['COVID', 'Cancer', 'ALS', 'Diabetes', 'Palliative', 'Child Health'];
     suggestions.forEach(suggestion => {
         const bubble = document.createElement('div');

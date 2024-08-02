@@ -150,24 +150,22 @@ body {
     border-bottom: 2px solid #163647;
 }
 
-/* Hide resource cards by default */
 .hidden {
     display: none;
 }
 
-/* Suggestion bubbles styling */
 .suggestions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px; /* Reduced gap between bubbles */
-    margin-top: -25px; /* Reduced space between search bar and bubbles */
+    gap: 5px; 
+    margin-top: -25px; 
 }
 
 .suggestion-bubble {
-    padding: 8px 12px; /* Slightly smaller bubbles */
-    font-size: 0.9em; /* Slightly smaller text */
-    border-radius: 15px; /* Adjusted border radius for smaller bubbles */
+    padding: 8px 12px; 
+    font-size: 0.9em; 
+    border-radius: 15px; 
     background-color: #E0E0E0;
     cursor: pointer;
     transition: background-color 0.3s;
