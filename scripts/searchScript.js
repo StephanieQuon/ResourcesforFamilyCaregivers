@@ -99,6 +99,8 @@ document.addEventListener('DOMContentLoaded', function () {
         suggestionsContainer.appendChild(bubble);
     });
 
+    //navigation bar
+
     function setActiveNavLink() {
         document.querySelectorAll(".nav-link").forEach(link => {
             const linkUrl = new URL(link.href).pathname;
@@ -110,4 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     setActiveNavLink();
+
 });
+

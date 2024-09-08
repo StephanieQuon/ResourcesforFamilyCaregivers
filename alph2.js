@@ -9,12 +9,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchStatus = document.getElementById('search-status');
     const noResultsMessage = document.getElementById('no-results-message');
     const resultsCount = document.getElementById('results-count');
+
+    const alphFilters = document.getElementById('alpha-filter')
     
     //creating filter bubble sets for the 3 categories: region, cost, virtual
     const filterBubbles = {
         'region': new Set(),
         'cost': new Set(),
-        'virtual': new Set()
+        'virtual': new Set(),
+        'alpha': new Set()
     };
 
     //set for all resources to be stored
@@ -69,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const regions = new Set();
         const costs = new Set();
         const virtualOptions = new Set();
+        const alpha = new Set();
 
         resources.forEach(resource => {
             resource['Condition(s)'].split(';').forEach(condition => conditions.add(condition.trim()));
@@ -118,6 +122,12 @@ document.addEventListener('DOMContentLoaded', function () {
             bubble.addEventListener('click', () => toggleFilter(bubble, 'virtual'));
             virtualFilter.appendChild(bubble);
         });
+
+        sortedAlpha.forEach(alpha =>{
+            const bubble = document.createElement('div');
+            
+        })
+
     }
 
     function toggleFilter(bubble, type) {

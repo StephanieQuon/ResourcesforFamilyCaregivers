@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BC Healthcare Resources for Family Caregivers</title>
+    
+    <title>BC Caregivers Directory</title>
+    <link rel="icon" href = "files/logo.png" type = "image/png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -11,12 +14,22 @@
     <link rel="stylesheet" href="styles/searchStyles.css">
 </head>
 <body>
+
+    <!-- blob gradient -->
+    <div class="blob-bottom-left"></div>
+    <div class="blob-top-right"></div>
+
+    <!-- nav bar -->
+
     <nav class="nav-bar">
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="center-align" style="display: flex; justify-content: center;">
                 <li><a href="search.html" class="nav-link">Search</a></li>
                 <li><a href="browse.html" class="nav-link">Browse</a></li>
+                
                 <li><a href="list.html" class="nav-link">List</a></li>
+                <li><a href = "alph.html" class = "nav-link">Alphabetical</a></li>
+
             </ul>
         </div>
     </nav>
@@ -25,12 +38,27 @@
             <img src="files/logo.png" alt="Logo">
         </div>
         <h1 class="center-align header-title">BC Healthcare Resources for Family Caregivers</h1>
+        
+        <h2 class = "header-title">
+            Supporting family caregivers through education, 
+            <br>
+             resources, and community building
+        </h2>
+
         <div class="row">
             <div class="col s12 search-bar">
                 <input id="search" type="text" class="autocomplete validate" placeholder="Search for Resources">
                 <i class="material-icons">search</i>
             </div>
+            <!-- result box -->
+            <div class = "result-box">
+                <ul>
+                    <li>Random1</li>
+                </ul>
+            </div>
+            <!-- end of result box -->
         </div>
+        
         <div class="row">
             <div class="col s12">
                 <div id="suggestions" class="suggestions">
@@ -42,5 +70,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="scripts/searchScript.js"></script>
+
+
+    
+
 </body>
 </html>

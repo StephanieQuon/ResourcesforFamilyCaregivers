@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Resources</title>
-    <link rel="icon" href = "files/logo.png" type = "image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/browseStyles.css">
@@ -18,7 +17,7 @@
                 <li><a href="browse.html" class="nav-link">Browse</a></li>
                 
                 <li><a href="list.html" class="nav-link">List</a></li>
-                <li><a href = "alph.html" class = "nav-link">Alphabetical</a></li>
+                <li><a href = "alph.html" class = "nav-link">Alph</a></li>
 
             </ul>
         </div>
@@ -47,6 +46,13 @@
                         <h6>Virtual/In-person</h6>
                         <div id="virtual-filter" class="filter-container"></div>
                     </div>
+
+
+                    <div class = "filter-group">
+                        <h6>Alphabet</h6>
+                        <div id = "alpha-filter" class = "filter-container"></div>
+                    </div>
+
                     <button id="clear-filters" class="btn">Clear Filters</button>
                 </div>
             </div>
@@ -66,6 +72,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="scripts/browseScript.js"></script>
+    <script src="alph2.js"></script>
 </body>
 </html>

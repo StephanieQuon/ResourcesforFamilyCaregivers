@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/alphabetStyles.css">
+
+    <title>Browse Resources Alphabetically</title>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-wrapper">
+            <ul id="nav-mobile" class="center-align" style="display: flex; justify-content: center;">
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="browse.html" class="nav-link">Browse</a></li>
+                
+                <li><a href="list.html" class="nav-link">List</a></li>
+                <li><a href = "alph.html" class = "nav-link">Alphabetical</a></li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="center-align header-title">Browse Resources by Alphabet</h1>
+        <div id="alphabet-filters" class="center-align">
+            <!-- alphabet letters -->
+            <span class="alphabet-filter" data-letter="A">A</span>
+
+            <span class="alphabet-filter" data-letter="B">B</span>
+            
+            <span class="alphabet-filter" data-letter="C">C</span>
+
+            <span class="alphabet-filter" data-letter="D">D</span>
+
+            <span class="alphabet-filter" data-letter="E">E</span>
+
+            <span class="alphabet-filter" data-letter="F">F</span>
+
+            <span class="alphabet-filter" data-letter="G">G</span>
+
+            <span class="alphabet-filter" data-letter="H">H</span>
+
+            <span class="alphabet-filter" data-letter="I">I</span>
+            
+            <span class="alphabet-filter" data-letter="J">J</span>
+            <span class="alphabet-filter" data-letter="K">K</span>
+            <span class="alphabet-filter" data-letter="L">L</span>
+            <span class="alphabet-filter" data-letter="M">M</span>
+            <span class="alphabet-filter" data-letter="N">N</span>
+            <span class="alphabet-filter" data-letter="O">O</span>
+            <span class="alphabet-filter" data-letter="P">P</span>
+            <span class="alphabet-filter" data-letter="Q">Q</span>
+            <span class="alphabet-filter" data-letter="R">R</span>
+            <span class="alphabet-filter" data-letter="S">S</span>
+            <span class="alphabet-filter" data-letter="T">T</span>
+            <span class="alphabet-filter" data-letter="U">U</span>
+            <span class="alphabet-filter" data-letter="V">V</span>
+            <span class="alphabet-filter" data-letter="W">W</span>
+            <span class="alphabet-filter" data-letter="X">X</span>
+            <span class="alphabet-filter" data-letter="Y">Y</span>
+            <span class="alphabet-filter" data-letter="Z">Z</span>
+            
+
+             <!-- way of getting the alphabet letters without typing each one out -->
+
+             <!-- alphabet loop -->
+              
+             
+
+        </div>
+
+        <div id="resource-list" class="resource-grid"></div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="scripts/alphabetScript.js"></script>
+</body>
+</html>
