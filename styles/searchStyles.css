@@ -2,6 +2,7 @@ body {
     /* background-color: #ffffff; */
     font-family: 'Roboto', sans-serif;
 
+
     /* changing background color to yellow gradient */
     background: linear-gradient(to right, white, white);
     position: relative;
@@ -10,60 +11,69 @@ body {
     overflow: auto;
     /* need to make it scrollable */
 
+
 }
 
-/* blob gradient */
 
-.blob-bottom-left {
+/* blob gradient */ */
+
+
+/* .blob-bottom-left {
     position: absolute;
-    width: 300px; 
-    height: 300px; 
+    width: 300px;
+    height: 300px;
     background: radial-gradient(circle, #FFF5CF, #FFF5CF);
     border-radius: 50%;
-    filter: blur(80px); 
+    filter: blur(80px);
 }
+
 
 .blob-top-right {
     position: absolute;
-    width: 300px; 
-    height: 300px; 
+    width: 300px;
+    height: 300px;
     background: radial-gradient(circle, #FFF5CF, #153647);
     border-radius: 50%;
-    filter: blur(80px); 
+    filter: blur(80px);
 }
+
 
 .blob-bottom-left {
-    bottom: -100px; 
-    left: -100px; 
+    bottom: -100px;
+    left: -100px;
 }
+
 
 .blob-top-right {
-    top: -50px; 
-    right: 0px; 
+    top: -50px;
+    right: 0px;
 }
 
+
 /* end of blob gradient */
+
 
 .container {
     margin-top: 20px;
 }
 
+
 /* making the header have a gradient */
 h1.header-title {
     font-weight: bold;
-    
+   
     -webkit-background-clip: text;
     /* cliping background off and letting the gradient fill the text */
     -webkit-text-fill-color: transparent;
     /* making the text transparent to fill in the gradient color */
     background-image: linear-gradient(to right, #163646, #578787,#163646, #578787);
-
-
     font-size: 1.9em;
     text-transform: uppercase;
 }
 
+
 h2.header-title{
+    padding-bottom: 30px;
     color: #163646;
     text-align: center;
     font-size: 1.8em;
@@ -71,29 +81,47 @@ h2.header-title{
     text-transform: capitalize;
 }
 
+
 .logo-space {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px; 
+    height: 150px;
+    margin-top: 50px;
     margin-bottom: 20px;
 }
 .logo-space img {
     max-height: 100%;
     max-width: 100%;
 }
+/* Search bar styles */
 .search-bar {
     position: relative;
     margin-bottom: 20px;
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center align vertically */
+    border-radius: 25px; /* Rounded bulb effect */
+    background-color: #ffffff; /* White background color for the bulb */
+    border: 1px solid #F0F0F0; /* Light gray border */
+    padding: 5px; /* Padding for the bulb */
 }
+
 .search-bar input {
     width: 100%;
-    padding: 10px 40px 10px 20px;
-    border-radius: 10px;
-    border: 1px solid #71A7B0;
+    padding: 10px 40px 10px 30px; /* Increase left padding to 30px */
+    border: none; /* Remove the underline */
+    margin-left: 25px;
+    border-radius: 25px; /* Match the bulb shape */
     font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White background color for input */
+    transition: background-color 0.3s; /* Smooth transition for hover */
 }
+
+.search-bar input:hover {
+    /* border-radius: 25px;
+    background-color: #f7f7f7; Slightly darker white on hover for feedback */
+}
+
 .search-bar .material-icons {
     position: absolute;
     right: 10px;
@@ -101,6 +129,7 @@ h2.header-title{
     transform: translateY(-50%);
     color: #71A7B0;
 }
+
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -153,7 +182,7 @@ h2.header-title{
     .resource-card {
         padding: 15px;
         flex-direction: column;
-        text-align: center; 
+        text-align: center;
     }
     .resource-card h5 {
         margin-bottom: 10px;
@@ -183,65 +212,99 @@ h2.header-title{
     }
 }
 
+
 .dropdown-content {
     transform-origin: 0 0 !important;
     top: 100% !important;
 }
 
+
 .nav-bar {
-    background-color: #ffffff; 
-    border-bottom: 1px solid #f0f0f0; 
+    background-color: #ffffff; /* Background color of the navbar */
+    border: none; /* Remove any border from the navbar */
+    box-shadow: none; /* Remove any shadow */
+}
+
+.nav-wrapper ul {
+    padding: 0; /* Remove padding around the list */
+    margin: 0; /* Remove margin */
+    list-style: none; /* Remove list bullets */
+}
+
+.nav-wrapper ul li {
+    position: relative; /* Set position to relative for the pseudo-element */
 }
 
 .nav-wrapper ul li a {
-    color: #163647; 
+    color: #163647; /* Text color */
     font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 1.2em;
-    padding: 0 15px;
-    text-transform: capitalize;
+    font-weight: 500; /* Font weight */
+    font-size: 1.2em; /* Font size */
+    padding: 0 15px; /* Padding for the links */
+    text-transform: capitalize; /* Capitalize the text */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s; /* Smooth transition for text color */
 }
 
-.nav-link:hover, .nav-link.active {
-    font-weight: bold; 
-    border-bottom: 2px solid #163647; 
-    color: #163647;
+/* Adding a pseudo-element for the underline effect */
+.nav-wrapper ul li a::after {
+    content: ''; /* Empty content for the pseudo-element */
+    display: block;
+    width: 100%; /* Full width of the link */
+    height: 2px; /* Height of the underline */
+    background-color: transparent; /* Initially transparent */
+    position: absolute; /* Position it absolutely */
+    bottom: -5px; /* Position it below the text */
+    left: 0; /* Align it to the left */
+    transition: background-color 0.3s; /* Smooth transition for the underline */
 }
 
-.nav-link.active {
-    border-bottom: 2px solid #163647;
+/* Change the underline color on hover */
+.nav-wrapper ul li a:hover::after {
+    background-color: #163647; /* Change to the desired color on hover */
 }
+
+/* Remove any background color on hover */
+.nav-wrapper ul li a:hover {
+    background-color: transparent; /* Ensure no background color appears */
+}
+
 
 .hidden {
     display: none;
 }
 
+
 .suggestions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px; 
-    margin-top: -25px; 
+    gap: 5px;
+    margin-top: -25px;
 }
 
+
 .suggestion-bubble {
-    padding: 8px 12px; 
-    font-size: 0.9em; 
-    border-radius: 15px; 
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border-radius: 15px;
     background-color: #E0E0E0;
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 
 .suggestion-bubble.selected {
     background-color: #163647;
     color: white;
 }
 
+
 .result-box ul {
     padding: 0; /* Remove padding to prevent extra space around list */
     margin: 0; /* Ensure there's no margin around the list */
 }
+
 
 .result-box ul li {
     list-style: none;
@@ -252,6 +315,10 @@ h2.header-title{
     margin: 5px 0; /* Optional: Add margin between items */
 }
 
+
 .result-box ul li:hover {
     background: #e9f3ff; /* The blue background color on hover */
 }
+
+
+

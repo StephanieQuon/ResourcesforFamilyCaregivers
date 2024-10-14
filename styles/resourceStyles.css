@@ -2,16 +2,43 @@ body {
     background-color: #ffffff;
     font-family: 'Roboto', sans-serif;
 }
+
+.resource-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 10px; /* Add rounded corners */
+}
 .back-button {
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
-    margin: 20px 0;
-    color: #71A7B0;
+    display: inline-block; /* Allow the button to wrap around the content */
+    background-color: #163646; /* Button background color */
+    border-radius: 25px; /* Curved edges */
+    padding: 10px 20px; /* Space around the button */
+    text-decoration: none; /* Remove underline from link */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    cursor: pointer; /* Change cursor to pointer */
 }
-.back-button i {
-    margin-right: 5px;
+
+.back-button a {
+    display: flex; /* Align icon and text */
+    align-items: center; /* Center icon vertically */
+    color: #fff; /* Set text color to white */
+    font-size: 1.2em; /* Font size */
+    text-decoration: none; /* Remove underline */
+    width: 100%; /* Ensure the link takes the full width */
+    height: 100%; /* Ensure the link takes the full height */
+    padding: 0; /* Reset padding */
 }
+.back-button a i {
+    margin-right: 10px; /* Add space between the icon and the text */
+}
+
+.back-button:hover {
+    background-color: #558a92; /* Darker shade on hover */
+}
+
+
 .container {
     margin-top: 20px;
 }
@@ -21,8 +48,8 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.header {
-    background-color: #71A7B0;
+/* .header {
+    background-color: #163646;
     padding: 15px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -31,15 +58,56 @@ body {
 .header h2 {
     margin: 0;
     font-size: 1.8em;
+} */
+.header {
+    position: relative;
+    background-size: cover;      /* Ensure the image fits the header area */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat;/* Prevents the image from repeating */
+    height: 250px;               /* Adjust the height as needed */
+    width: 100%;                 /* Ensure the image spans the entire width */
+    display: flex;
+    justify-content: center;     /* Centers the title horizontally */
+    align-items: center;         /* Centers the title vertically */
+    overflow: hidden;            /* Ensures the header does not overflow */
+    border-radius: 15px;         /* Adjust the radius as needed for curved edges */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow for depth */
 }
+
+/* Overlay to darken the background image */
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45); /* Darkens the image to enhance text visibility */
+    z-index: 1;
+    border-radius: 15px;         /* Match border-radius of the header */
+}
+
+/* Style for the resource title */
+#resource-name {
+    position: relative;
+    z-index: 2;                  /* Ensures the title is above the image overlay */
+    font-size: 28px;
+    color: white;
+    width: 100%;                 /* Makes the title span the entire width */
+    text-align: center;          /* Centers the title */
+    padding: 0 20px;             /* Adds padding for breathing room */
+}
+
+
+
 .services {
     background-color: #fff;
     padding: 10px 15px;
-    border-bottom: 1px solid #71A7B0;
+    border-bottom: 1px solid #163646;
 }
 .tags {
     padding: 10px 15px;
-    border-bottom: 1px solid #71A7B0;
+    border-bottom: 1px solid #163646;
 }
 .tag {
     display: inline-block;
@@ -58,7 +126,7 @@ body {
     margin-bottom: 10px;
 }
 .detail-icon {
-    background-color: #71A7B0;
+    background-color: #163646;
     color: #fff;
     border-radius: 50%;
     padding: 5px;
@@ -75,4 +143,29 @@ body {
 }
 .spacing {
     margin-bottom: 20px; 
+}
+
+/* Right side: Google Maps iframe */
+.google-maps {
+    width: 35%; /* Google Maps takes up 35% of the width */
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#map-frame {
+    width: 100%;
+    height: 300px;
+    border: 0;
+    border-radius: 10px;
+}
+
+#map-container iframe {
+    border-radius: 15px; /* Rounded corners */
+    border: none; /* Remove any default borders */
+    width: 100%; /* Make sure the iframe takes the full width */
+    height: 400px; /* Set a height for the map */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for aesthetics */
+    overflow: hidden;
 }

@@ -10,19 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const backLink = document.getElementById('back-link');
 
     if (backLink) {
-        let href;
-        switch (source) {
-            case 'browse':
-                href = 'browse.html';
-                break;
-            case 'list':
-                href = 'list.html';
-                break;
-            default:
-                href = 'search.html';
-        }
-        backLink.setAttribute('href', href);
-        console.log(`Back link set to ${href}`);
+        // Instead of setting a specific href, set a click event listener
+        backLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            window.history.back(); // Go back to the previous page
+        });
+        console.log(`Back link set to use window.history.back()`);
     } else {
         console.error('Back link element not found.');
     }
@@ -46,6 +39,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if (resource) {
                         document.getElementById('resource-name').textContent = resource["Name of Organization"];
+                        
+                        // Assuming the resource's image path is being pulled from the CSV as resource["image"]
+                    
+                        if (resource["images"]) {
+                            document.getElementById('resource-header').style.backgroundImage = `url(${resource["images"]})`;
+                        } else {
+                            document.getElementById('resource-header').style.backgroundImage = 'none';
+                        }
+
+                        
+
+
                         document.getElementById('services-offered').textContent = resource["Services offered"];
                         const tags = resource["Tag"].split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('');
                         document.getElementById('tags').innerHTML = tags;
@@ -60,6 +65,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById('health-region').textContent = `Health Region: ${resource["Health Region"]}`;
                         document.getElementById('virtual-inperson').textContent = `Service Type: ${resource["Virtual/In-person"]}`;
                         document.getElementById('age-restriction').textContent = `Age Restriction: ${resource["Age restriction"]}`;
+                        
+                        
+
+                        // Add the Google Maps iframe from the "map" column
+                        if (resource["map"]) {
+                            document.getElementById('map-container').innerHTML = resource["map"];
+                        } else {
+                            document.getElementById('map-container').innerHTML = "No map available.";
+                        }
+
                     } else {
                         document.getElementById('resource-name').textContent = 'Resource not found.';
                     }

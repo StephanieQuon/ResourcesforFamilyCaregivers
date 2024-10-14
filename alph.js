@@ -11,7 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             resources = Papa.parse(data, { header: true }).data;
-            displayResources(resources);
+            // Check if there's a letter query param in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedLetter = urlParams.get('letter');
+            if (selectedLetter) {
+                filterResourcesByLetter(selectedLetter.toUpperCase());
+            } else {
+                displayResources(resources);
+            }
         })
         .catch(error => {
             console.error('Error fetching or parsing the CSV file:', error);
@@ -41,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
             resource['Name of Organization'].toUpperCase().startsWith(letter)
         );
         displayResources(filteredResources);
+        
+        // Update the URL to reflect the selected letter
+        const newUrl = `${window.location.pathname}?letter=${letter}`;
+        history.pushState({ letter: letter }, '', newUrl);
     }
 
     // Add event listeners to letter buttons
@@ -49,5 +60,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedLetter = this.getAttribute('data-letter').toUpperCase();
             filterResourcesByLetter(selectedLetter);
         });
+    });
+
+    // Handle the back/forward buttons to restore the previous state
+    window.addEventListener('popstate', function (event) {
+        if (event.state && event.state.letter) {
+            filterResourcesByLetter(event.state.letter);
+        } else {
+            // If no state exists (no letter selected), display all resources
+            displayResources(resources);
+        }
     });
 });

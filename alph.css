@@ -1,28 +1,56 @@
-.letter-list {
-    align-items: center;
-}
-.letter-list button {
-    background-color: transparent;
-    margin-bottom: 5px;
-    border: none;
-    color: black;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
+/* Restore top horizontal navigation bar */
+.left-nav-bar {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: auto; /* Adjust height based on content */
+    background-color: #163647; /* Background color */
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    padding: 10px 0; /* Add some padding around the buttons */
 }
 
-.letter-list button:hover {
-    color: blue;
+/* Letter buttons in a row */
+.letter-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Center the buttons */
+    align-items: center;
+    width: 100%;
 }
+
+/* Style the letter buttons */
+.letter-list button {
+    background-color: transparent;
+    margin: 0 5px; /* Spacing between buttons */
+    border: none;
+    color: #fff;
+    padding: 10px 15px; /* Increased padding for better touch targets */
+    font-size: 16px; /* Font size */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover and focus effects */
+.letter-list button:hover {
+    background-color: #71A7B0;
+}
+.letter-list button:focus {
+    background-color: #F9D289;
+    color: #163647;
+}
+
+/* Adjust the main container to ensure it fits below the nav */
+.container {
+    margin-top: 10px; /* Ensure space below the horizontal nav bar */
+    padding: 20px;
+}
+
 
 body {
     background-color: #ffffff;
     font-family: 'Roboto', sans-serif;
-}
-
-.container {
-    margin-top: 20px;
 }
 
 .header-title {
@@ -30,86 +58,21 @@ body {
     font-size: 1.9em;
 }
 
-.logo-space {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px; 
-    margin-bottom: 20px;
+.logo {
+    height: 45px; /* Set the logo height */
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 5px; /*Space between logo and nav links*/
+    padding: 5px;
 }
 
-.logo-space img {
-    max-height: 100%;
-    max-width: 100%;
+.logo-container {
+    cursor: default; /* Prevent pointer cursor on hover */
+    display: flex; 
 }
 
-.search-bar {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 10px 40px 10px 20px;
-    border-radius: 10px;
-    border: 1px solid #71A7B0;
-    font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.search-bar .search-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #71A7B0;
-}
-
-.side-panel {
-    padding: 15px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.filter-group {
-    margin-bottom: 20px;
-}
-
-.filter-group h6 {
-    margin-top: 0;
-    color: #163647;
-}
-
-.filter-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.filter-bubble {
-    padding: 10px 15px;
-    border-radius: 15px;
-    background-color: #e0e0e0; 
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.filter-bubble.selected {
-    background-color: #163647;
-    color: #fff;
-}
-
-.filters .input-field {
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.filters .input-field select {
-    background-color: #fff;
-}
-
-.filter-button, .btn {
+.btn {
     background-color: #71A7B0;
     color: #fff;
 }

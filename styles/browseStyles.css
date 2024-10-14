@@ -7,22 +7,25 @@ body {
     margin-top: 20px;
 }
 
+
+
 .header-title {
     color: #163647;
     font-size: 1.9em;
 }
 
-.logo-space {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px; 
-    margin-bottom: 20px;
+.logo {
+    height: 45px; /* Set the logo height */
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 5px; /*Space between logo and nav links*/
+    padding: 5px;
 }
 
-.logo-space img {
-    max-height: 100%;
-    max-width: 100%;
+.logo-container {
+    cursor: default; /* Prevent pointer cursor on hover */
+    display: flex; 
 }
 
 .search-bar {
