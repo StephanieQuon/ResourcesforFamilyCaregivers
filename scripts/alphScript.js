@@ -24,23 +24,34 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching or parsing the CSV file:', error);
         });
 
-    // Function to display resources
     function displayResources(resourcesToDisplay) {
         resourceList.innerHTML = '';
+        const resourceGrid = document.createElement('div');
+        resourceGrid.className = 'resource-grid'; // Add this line
+    
         resourcesToDisplay.forEach(resource => {
-            const resourceCard = document.createElement('div');
-            resourceCard.className = 'resource-card';
+            const resourceCard = document.createElement('a'); // Change this to an anchor tag
+            resourceCard.className = 'resource-card'; // Apply the card styling
+            
+            // Set the href attribute to link to the resource page
+            resourceCard.href = `resource.html?name=${encodeURIComponent(resource['Name of Organization'])}`;
+            
+            // Set the inner HTML of the card
             resourceCard.innerHTML = `
                 <div>
                     <h5>${resource['Name of Organization']}</h5>
                     <p class="condition">${resource['Condition(s)']}</p>
                     <p>${resource['Health Region']}</p>
                 </div>
-                <a href="resource.html?name=${encodeURIComponent(resource['Name of Organization'])}" class="btn view-resource">View Resource</a>
             `;
-            resourceList.appendChild(resourceCard);
+    
+            resourceGrid.appendChild(resourceCard); // Append the card to the grid
         });
+    
+        resourceList.appendChild(resourceGrid); // Append the grid to the list
     }
+    
+    
 
     // Function to filter resources by letter
     function filterResourcesByLetter(letter) {

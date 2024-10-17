@@ -16,23 +16,30 @@
             <span class="brand-logo left logo-container">
                 <img src="files/logo.png" alt="Logo" class="logo">
             </span>
-            <ul id="nav-mobile" class="center-align" style="display: flex; justify-content: center;">
+            <ul id="nav-mobile" class="center-align" style="display: flex; justify-content: right;">
                 <li><a href="search.html" class="nav-link">Search</a></li>
                 <li><a href="browse.html" class="nav-link">Browse</a></li>
-                
-                <!-- <li><a href="list.html" class="nav-link">List</a></li> -->
                 <li><a href = "alph.html" class = "nav-link">Alphabetical</a></li>
-
+                <!-- <li><a href="list.html" class="nav-link">List</a></li> -->
+                <li><a href = "about.html" class = "nav-link">About</a></li>
             </ul>
         </div>
     </nav>
+    </div>
+    <div class="title-container">
+        <div class="title-text">
+            <h1 class = "title-text-alpha"> Browse</h1>
+            <p class="subtitle-text">Find BC healthcare organizations that meet your needs! Easily filter by various options to explore the best options for you.</p>
+        </div>
+    </div>
+
     <div class="container">
-        <h1 class="center-align header-title">BC Healthcare Resources for Family Caregivers</h1>
+        <!-- <h1 class="center-align header-title">BC Healthcare Resources for Family Caregivers</h1> -->
         <div class="row">
             <div class="col s12 m4 l3">
                 <div class="side-panel">
-                    <h5>Filters</h5>
-                    <div class="input-field">
+                    <!-- <h5>Filters</h5> -->
+                    <div class="filter-group">
                         <h6>Condition</h6>
                         <select id="condition-filter">
                             <option value="" disabled selected>Choose Condition</option>
@@ -62,7 +69,10 @@
                     <p id="no-results-message" style="display: none">No results found</p>
                     <p id="results-count"></p>
                 </div>
-                <div id="resource-list" class="resource-grid"></div>
+                <div id="resource-list" class="resource-grid">
+                    <img src="${imageUrl}" alt="${resource['Name of Organization']}" class="resource-image">
+                </div>
+               
             </div>
         </div>
     </div>
@@ -72,3 +82,8 @@
     <script src="scripts/browseScript.js"></script>
 </body>
 </html>
+
+
+
+
+

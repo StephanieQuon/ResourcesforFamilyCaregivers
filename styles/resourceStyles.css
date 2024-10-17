@@ -7,17 +7,18 @@ body {
     max-width: 100%;
     height: auto;
     margin-top: 15px;
-    border-radius: 10px; /* Add rounded corners */
+    border-radius: 5px; /* Add rounded corners */
 }
 .back-button {
     display: inline-block; /* Allow the button to wrap around the content */
     background-color: #163646; /* Button background color */
-    border-radius: 25px; /* Curved edges */
+    border-radius: 5px; /* Curved edges */
     padding: 10px 20px; /* Space around the button */
     text-decoration: none; /* Remove underline from link */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
     transition: background-color 0.3s ease; /* Smooth hover transition */
     cursor: pointer; /* Change cursor to pointer */
+    margin-bottom: 20px;
 }
 
 .back-button a {
@@ -45,7 +46,7 @@ body {
 .resource-details {
     background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 /* .header {
@@ -70,9 +71,10 @@ body {
     justify-content: center;     /* Centers the title horizontally */
     align-items: center;         /* Centers the title vertically */
     overflow: hidden;            /* Ensures the header does not overflow */
-    border-radius: 15px;         /* Adjust the radius as needed for curved edges */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow for depth */
+    border-radius: 5px;         /* Adjust the radius as needed for curved edges */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /*  adds a shadow for depth */
 }
+
 
 /* Overlay to darken the background image */
 .header::before {
@@ -84,21 +86,24 @@ body {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.45); /* Darkens the image to enhance text visibility */
     z-index: 1;
-    border-radius: 15px;         /* Match border-radius of the header */
+    border-radius: 5px;         /* Match border-radius of the header */
 }
+
+
 
 /* Style for the resource title */
 #resource-name {
-    position: relative;
-    z-index: 2;                  /* Ensures the title is above the image overlay */
+    position: absolute;           /* Position the title relative to its parent */
+    bottom: 5px;                 /* Move it 20px from the bottom */
+    left: 20px;                   /* Move it 20px from the left */
+    z-index: 5;                   /* Ensures the title is above the image overlay */
     font-size: 28px;
-    color: white;
-    width: 100%;                 /* Makes the title span the entire width */
-    text-align: center;          /* Centers the title */
-    padding: 0 20px;             /* Adds padding for breathing room */
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    width: auto;                  /* Adjusts the width dynamically */
+    padding: 0;                   /* Remove padding, as it's not necessary here */
+    text-align: left;             /* Left-align the text */
 }
-
-
 
 .services {
     background-color: #fff;
@@ -112,7 +117,7 @@ body {
 .tag {
     display: inline-block;
     background-color: #f1f1f1;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 5px 10px;
     margin: 5px;
     font-size: 0.9em;
@@ -128,7 +133,7 @@ body {
 .detail-icon {
     background-color: #163646;
     color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 5px;
     margin-right: 10px;
     display: flex;
@@ -150,7 +155,7 @@ body {
     width: 35%; /* Google Maps takes up 35% of the width */
     background-color: #f9f9f9;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -158,11 +163,11 @@ body {
     width: 100%;
     height: 300px;
     border: 0;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 #map-container iframe {
-    border-radius: 15px; /* Rounded corners */
+    border-radius: 5px; /* Rounded corners */
     border: none; /* Remove any default borders */
     width: 100%; /* Make sure the iframe takes the full width */
     height: 400px; /* Set a height for the map */

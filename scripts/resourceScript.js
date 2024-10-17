@@ -48,25 +48,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             document.getElementById('resource-header').style.backgroundImage = 'none';
                         }
 
-                        
-
-
                         document.getElementById('services-offered').textContent = resource["Services offered"];
                         const tags = resource["Tag"].split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('');
                         document.getElementById('tags').innerHTML = tags;
-                        document.getElementById('address').textContent = `Address: ${resource["Address"]}`;
-                        document.getElementById('phone').textContent = `Phone Number: ${resource["Contact phone number"]}`;
-                        document.getElementById('website').innerHTML = `Website: <a href="${resource["Contact website"]}" target="_blank">${resource["Contact website"]}</a>`;
-                        document.getElementById('email').innerHTML = `Email: <a href="mailto:${resource["Contact email"]}">${resource["Contact email"]}</a>`;
-                        document.getElementById('status').textContent = `Status: ${resource["Status"]}`;
-                        document.getElementById('cost').textContent = `Cost: ${resource["Cost"]}`;
-                        document.getElementById('language').textContent = `Language: ${resource["Language restriction"]}`;
-                        document.getElementById('condition').textContent = `Condition(s): ${resource["Condition(s)"]}`;
-                        document.getElementById('health-region').textContent = `Health Region: ${resource["Health Region"]}`;
-                        document.getElementById('virtual-inperson').textContent = `Service Type: ${resource["Virtual/In-person"]}`;
-                        document.getElementById('age-restriction').textContent = `Age Restriction: ${resource["Age restriction"]}`;
-                        
-                        
+                        document.getElementById('address').innerHTML = `<strong>Address:</strong> ${resource["Address"]}`;
+                        document.getElementById('phone').innerHTML = `<strong>Phone Number:</strong> ${resource["Contact phone number"]}`;
+                        document.getElementById('website').innerHTML = `<strong>Website:</strong> <a href="${resource["Contact website"]}" target="_blank">${resource["Contact website"]}</a>`;
+                        document.getElementById('email').innerHTML = `<strong>Email:</strong> <a href="mailto:${resource["Contact email"]}">${resource["Contact email"]}</a>`;
+                        document.getElementById('status').innerHTML = `<strong>Status:</strong> ${resource["Status"]}`;
+                        document.getElementById('cost').innerHTML = `<strong>Cost:</strong> ${resource["Cost"]}`;
+                        document.getElementById('language').innerHTML = `<strong>Language:</strong> ${resource["Language restriction"]}`;
+                        document.getElementById('condition').innerHTML = `<strong>Condition(s):</strong> ${resource["Condition(s)"]}`;
+                        document.getElementById('health-region').innerHTML = `<strong>Health Region:</strong> ${resource["Health Region"]}`;
+                        document.getElementById('virtual-inperson').innerHTML = `<strong>Service Type:</strong> ${resource["Virtual/In-person"]}`;
+                        document.getElementById('age-restriction').innerHTML = `<strong>Age Restriction:</strong> ${resource["Age restriction"]}`;
 
                         // Add the Google Maps iframe from the "map" column
                         if (resource["map"]) {
