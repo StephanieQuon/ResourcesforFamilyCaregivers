@@ -26,6 +26,30 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching or parsing the CSV file:', error);
         });
 
+    // function displayResources(filteredResources) {
+    //     if (filteredResources.length === 0) {
+    //         resourceList.classList.add('hidden');
+    //         return;
+    //     }
+        
+    //     resourceList.innerHTML = '';
+    //     filteredResources.forEach(resource => {
+    //         const resourceCard = document.createElement('div');
+    //         resourceCard.className = 'resource-card';
+    //         resourceCard.innerHTML = `
+    //             <div>
+    //                 <h5>${resource['Name of Organization']}</h5>
+    //                 <p class="condition">${resource['Condition(s)']}</p>
+    //                 <p>${resource['Health Region']}</p>
+    //             </div>
+    //             <a href="resource.html?name=${encodeURIComponent(resource['Name of Organization'])}" class="btn view-resource">View Resource</a>
+    //         `;
+    //         resourceList.appendChild(resourceCard);
+    //     });
+
+    //     resourceList.classList.remove('hidden');
+    // }
+
     function displayResources(filteredResources) {
         if (filteredResources.length === 0) {
             resourceList.classList.add('hidden');
@@ -42,13 +66,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     <p class="condition">${resource['Condition(s)']}</p>
                     <p>${resource['Health Region']}</p>
                 </div>
-                <a href="resource.html?name=${encodeURIComponent(resource['Name of Organization'])}" class="btn view-resource">View Resource</a>
             `;
+    
+            // Make the entire card clickable
+            resourceCard.addEventListener('click', () => {
+                window.location.href = `resource.html?name=${encodeURIComponent(resource['Name of Organization'])}`;
+            });
+    
             resourceList.appendChild(resourceCard);
         });
-
+    
         resourceList.classList.remove('hidden');
     }
+    
+
+    
+    
 
     function filterResources() {
         const searchValue = searchInput ? searchInput.value.toLowerCase() : '';
@@ -99,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function () {
         suggestionsContainer.appendChild(bubble);
     });
 
+    //navigation bar
+
     function setActiveNavLink() {
         document.querySelectorAll(".nav-link").forEach(link => {
             const linkUrl = new URL(link.href).pathname;
@@ -110,4 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     setActiveNavLink();
+
 });
+

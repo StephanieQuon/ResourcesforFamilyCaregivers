@@ -9,14 +9,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchStatus = document.getElementById('search-status');
     const noResultsMessage = document.getElementById('no-results-message');
     const resultsCount = document.getElementById('results-count');
-    
+
     const filterBubbles = {
         'region': new Set(),
         'cost': new Set(),
         'virtual': new Set()
     };
 
-    let allResources = []; 
+    let allResources = [];
 
     M.FormSelect.init(document.querySelectorAll('select'));
 
@@ -29,37 +29,81 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             const resources = Papa.parse(data, { header: true }).data;
-            allResources = resources; 
-            console.log('Parsed resources:', resources); 
+            allResources = resources;
             displayResources(resources);
             populateFilters(resources);
             initializeAutocomplete(resources);
             filterResources();
-            resultsCount.textContent = `Number of results found: ${resources.length}`; 
+            resultsCount.textContent = `Number of results found: ${resources.length}`;
         })
         .catch(error => {
             console.error('Error fetching or parsing the CSV file:', error);
         });
 
+    
     function displayResources(resources) {
-        resourceList.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+        
         resources.forEach(resource => {
             const resourceCard = document.createElement('div');
             resourceCard.className = 'resource-card';
+            
+            const imageUrl = resource["images"] ? resource["images"] : 'files/placeholder.png';
+    
+            // Set the innerHTML for the resource card with a text-container div
             resourceCard.innerHTML = `
                 <div>
-                    <h5>${resource['Name of Organization']}</h5>
-                    <p class="condition">${resource['Condition(s)']}</p>
-                    <p>${resource['Health Region']}</p>
+                    <img data-src="${imageUrl}" alt="${resource['Name of Organization']}" class="lazy-resource-image">
+                    <div class="text-container">
+                        <h5>${resource['Name of Organization']}</h5>
+                        <p class="condition">${resource['Condition(s)']}</p>
+                        <p>${resource['Health Region']}</p>
+                    </div>
                 </div>
-                <a href="resource.html?name=${encodeURIComponent(resource['Name of Organization'])}" class="btn view-resource">View Resource</a>
             `;
-            resourceList.appendChild(resourceCard);
+    
+            // Add click event listener to the entire resource card
+            resourceCard.addEventListener('click', function() {
+                // Navigate to the desired page when the card is clicked
+                window.location.href = `resource.html?name=${encodeURIComponent(resource['Name of Organization'])}`;
+            });
+    
+            // Append the card to the fragment
+            fragment.appendChild(resourceCard);
         });
-
+    
+        // Clear the resource list and append the newly created fragment
+        resourceList.innerHTML = '';
+        resourceList.appendChild(fragment);
+        
+        // Call lazy load for images
+        lazyLoadImages();
+    
+        // Update results count
         resultsCount.textContent = `Number of results found: ${resources.length}`;
     }
-
+    
+    function lazyLoadImages() {
+        const lazyImages = document.querySelectorAll('.lazy-resource-image');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting || entry.intersectionRatio > 0.1) { // Change this threshold
+                    const img = entry.target;
+                    // Create a new Image object to ensure it's fully loaded before applying the class
+                    const tempImage = new Image();
+                    tempImage.src = img.dataset.src;
+                    tempImage.onload = () => {
+                        img.src = tempImage.src; // Load the image
+                        img.classList.add('loaded'); // Add 'loaded' class to trigger the blur and opacity transition
+                    };
+                    observer.unobserve(img); // Stop observing
+                }
+            });
+        });
+    
+        lazyImages.forEach(img => observer.observe(img));
+    }
+    
     function populateFilters(resources) {
         const conditions = new Set();
         const regions = new Set();
@@ -78,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const sortedCosts = Array.from(costs).sort();
         const sortedVirtualOptions = Array.from(virtualOptions).sort();
 
-        conditionFilter.innerHTML = '<option value="" disabled selected>Choose Condition</option>'; 
+        conditionFilter.innerHTML = '<option value="" disabled selected>Choose Condition</option>';
         sortedConditions.forEach(condition => {
             const option = document.createElement('option');
             option.value = condition;
@@ -130,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function () {
             filterBubbles[type].delete(value);
         }
 
-        console.log('Filter bubbles:', filterBubbles); 
         filterResources();
     }
 
@@ -148,7 +191,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    searchInput.addEventListener('input', () => filterResources());
+    function debounce(func, delay) {
+        let debounceTimer;
+        return function () {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+    }
+
+    searchInput.addEventListener('input', debounce(() => filterResources(), 300));
     conditionFilter.addEventListener('change', () => filterResources());
     clearFiltersButton.addEventListener('click', () => {
         searchInput.value = '';
@@ -164,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchValue = searchInput.value.toLowerCase();
         const conditionValue = conditionFilter.value;
 
-        let filteredResources = allResources.slice(); 
+        let filteredResources = allResources.slice();
 
         if (searchValue) {
             filteredResources = filteredResources.filter(resource =>
@@ -172,19 +225,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 (resource['Tags'] && resource['Tags'].toLowerCase().includes(searchValue))
             );
         }
-        
+
         if (conditionValue) {
             filteredResources = filteredResources.filter(resource => resource['Condition(s)'].includes(conditionValue));
         }
-        
+
         if (filterBubbles['region'].size > 0) {
             filteredResources = filteredResources.filter(resource => filterBubbles['region'].has(resource['Health Region']));
         }
-        
+
         if (filterBubbles['cost'].size > 0) {
             filteredResources = filteredResources.filter(resource => filterBubbles['cost'].has(resource['Cost']));
         }
-        
+
         if (filterBubbles['virtual'].size > 0) {
             filteredResources = filteredResources.filter(resource => filterBubbles['virtual'].has(resource['Virtual/In-person']));
         }
@@ -206,7 +259,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const currentPath = window.location.pathname;
         document.querySelectorAll(".nav-link").forEach(link => {
             const linkPath = new URL(link.href, window.location.origin).pathname;
-            console.log(`Current Path: ${currentPath}, Link Path: ${linkPath}`);
             if (currentPath === linkPath) {
                 link.classList.add("active");
             } else {
@@ -217,4 +269,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setActiveNavLink();
 });
-

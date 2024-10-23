@@ -1,0 +1,224 @@
+body {
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header-title {
+    color: #163647;
+    font-size: 1.9em;
+}
+
+.logo {
+    height: 45px; 
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 5px; /*Space between logo and nav links*/
+    padding: 5px;
+}
+
+.logo-container {
+    cursor: default; 
+    display: flex; 
+}
+
+.resource-card {
+    margin: 15px 0;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar {
+    background-color: #ffffff; 
+    border-bottom: 1px solid #f0f0f0; 
+}
+
+.nav-wrapper ul li a {
+    color: #163647; 
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+    padding: 0 15px;
+    text-transform: capitalize;
+}
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 1.2em;
+    }
+}
+
+/* Style for the title container */
+.title-container {
+    background-color: #163647;
+    display: flex;
+    justify-content: center; /* Center the title block horizontally */
+    padding: 20px 0; /* Add some padding for spacing */
+}
+
+/* Style for the title text */
+.title-text {
+    text-align: left; 
+    max-width: 1200px; 
+    width: 100%; 
+}
+.title-text h1 {
+    font-weight: bold;
+    color: white;
+    text-align: left; 
+    max-width: 1200px; 
+    width: 100%; 
+    font-size: 3em; 
+}
+
+.subtitle-text {
+    font-weight: bold;
+    text-align: left;
+    max-width: 1200px; 
+    width: 100%; 
+    font-size: 1.2em; 
+    color: #ffffff; 
+}
+
+.credits-container{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0; 
+}
+
+.credits-text {
+    color: #163647;
+    text-align: left; 
+    max-width: 1200px; 
+    width: 50%; 
+}
+
+/* Remove any background color on hover */
+.nav-wrapper ul li a:hover {
+    background-color: transparent; /* Ensure no background color appears */
+    color: #71A7B0;
+}
+
+.nav-link:hover{
+    /* border-bottom: 2px solid #163647; */
+    color: #163647;
+}
+
+.nav-link.active {
+    font-weight: bold;
+}
+
+/* Remove any background color on hover */
+.nav-wrapper ul li a:hover {
+    background-color: transparent; /* Ensure no background color appears */
+    color: #71A7B0;
+}
+
+
+/* Style for the buttons */
+.btn-container {
+    margin-top: 20px; /* Add space between text and buttons */
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+    justify-content: flex-start;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    border: none;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    color: #163647;
+    border: 1px solid #163647;
+}
+
+.btn-secondary:hover {
+    background-color: #71A7B0; /* Change background color on hover */
+    color: white; /* Change text color on hover */
+}
+
+.btn-secondary:active {
+    background-color: white; /* Keep original background color on click */
+    color: #163647; /* Keep original text color on click */
+}
+
+/* Style for the title container */
+.title-container, credits-container {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center;
+}
+
+/* Style for the title text */
+.title-text, credits-text {
+    text-align: left; 
+    width: 100%; 
+}
+
+/* Style for the buttons */
+.btn-container {
+    margin-top: 20px; /* Space between text and buttons */
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    /* Align buttons to the left */
+    align-items: left;
+    padding: 0px 0 40px 0;
+}
+
+/* Style for the buttons */
+.btn-primary, .btn-secondary {
+    padding: 10px 20px; /* Button padding */
+    border: none; /* Remove border */
+    font-size: 1.1em; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 5px; /* Rounded corners */
+    font-weight: 600;
+}
+
+.title-text-credits {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.credits-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 40px 0;
+    max-width: 1200px; /* Control the max width of the container */
+    margin: 0 auto; /* Center the container on the page */
+}
+
+.credits-text, .credits-img {
+    width: 50%; /* Split space between text and images */
+}
+
+.credits-text {
+    padding-right: 20px;
+    text-align: left; 
+}
+
+.credits-img {
+    display: flex;
+    justify-content: center; /* Center images horizontally */
+    gap: 20px; /* Space between images */
+}
+
+.img {
+    max-width: 150px; /* Set a maximum width for the images */
+    height: auto;
+}

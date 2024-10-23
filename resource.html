@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resource Details</title>
+    <link rel="icon" href = "files/logo.png" type = "image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -13,13 +14,17 @@
 <body>
     <div class="container">
         <div class="back-button">
-            <i class="material-icons">arrow_back</i>
-            <a id="back-link">Back</a>
+            <a href="#" id="back-link">
+                <i class="material-icons">arrow_back</i>
+                Back
+            </a>
         </div>
         <div class="resource-details">
-            <div class="header">
-                <h2 id="resource-name">Resource Name</h2>
+            <div class="header" id="resource-header">
+                <h2 id="resource-name"></h2>
             </div>
+            
+            
             <div class="services">
                 <p id="services-offered">Services offered</p>
             </div>
@@ -69,6 +74,10 @@
                     <div class="detail-icon"><i class="material-icons">info</i></div>
                     <div class="detail-text" id="status">Status</div>
                 </div>
+                
+                <div id="map-container"></div>
+
+
             </div>
         </div>
     </div>
